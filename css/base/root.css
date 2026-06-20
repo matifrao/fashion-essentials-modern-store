@@ -1,0 +1,425 @@
+/* ==========================================
+   GOOGLE FONTS
+========================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+*,
+*::before,
+*::after{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+
+/* ==========================================
+   ROOT VARIABLES
+========================================== */
+
+:root{
+
+/* -------------------------
+   CORE COLORS
+------------------------- */
+
+--ink:#102033;
+--muted:#627084;
+
+--white:#ffffff;
+
+--line:#dde5ef;
+
+--soft:#f4f8fb;
+
+
+/* -------------------------
+   BRAND
+------------------------- */
+
+--primary:#1f51bc;
+
+--primary-hover:#1a46a3;
+
+--navy:#0b1f33;
+
+--cyan:#08c7d8;
+
+
+/* -------------------------
+   FASHION
+------------------------- */
+
+--fashion-black:#111827;
+
+--fashion-gold:#C7A26A;
+
+--fashion-cream:#FAF8F5;
+
+--fashion-beige:#F2E9DE;
+
+
+/* -------------------------
+   TEXT
+------------------------- */
+
+--text-main:var(--ink);
+
+--text-secondary:var(--muted);
+
+--text-light:#93a3b5;
+
+
+/* -------------------------
+   BACKGROUNDS
+------------------------- */
+
+--bg-main:var(--white);
+
+--bg-soft:var(--fashion-cream);
+
+--bg-card:#ffffff;
+
+
+/* -------------------------
+   FEEDBACK
+------------------------- */
+
+--success:#18c96e;
+
+--warning:#f59e0b;
+
+--error:#d9534f;
+
+
+/* -------------------------
+   SHADOWS
+------------------------- */
+
+--shadow-sm:
+0 8px 20px rgba(16,32,51,.05);
+
+--shadow-md:
+0 16px 40px rgba(16,32,51,.10);
+
+--shadow-lg:
+0 24px 70px rgba(16,32,51,.14);
+
+
+/* -------------------------
+   TRANSITIONS
+------------------------- */
+
+--transition-fast:
+.2s ease;
+
+--transition:
+.3s ease;
+
+
+/* -------------------------
+   BORDER RADIUS
+------------------------- */
+
+--radius-sm:6px;
+
+--radius-md:10px;
+
+--radius-lg:18px;
+
+--radius-xl:28px;
+
+
+/* -------------------------
+   CONTAINER
+------------------------- */
+
+--container:
+1280px;
+
+
+/* -------------------------
+   SPACING
+------------------------- */
+
+--space-1:4px;
+
+--space-2:8px;
+
+--space-3:12px;
+
+--space-4:16px;
+
+--space-5:24px;
+
+--space-6:32px;
+
+--space-7:48px;
+
+--space-8:64px;
+
+}
+
+
+
+/* ==========================================
+   DOCUMENT
+========================================== */
+
+html{
+
+scroll-behavior:
+smooth;
+
+font-size:
+100%;
+
+}
+
+
+
+/* ==========================================
+   BODY
+========================================== */
+
+body{
+
+font-family:
+"Inter",
+sans-serif;
+
+background:
+var(--bg-main);
+
+color:
+var(--text-main);
+
+line-height:
+1.6;
+
+min-height:
+100vh;
+
+text-rendering:
+optimizeLegibility;
+
+}
+
+
+
+/* ==========================================
+   TYPOGRAPHY
+========================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+
+font-family:
+"Playfair Display",
+serif;
+
+font-weight:
+700;
+
+line-height:
+1.15;
+
+color:
+var(--fashion-black);
+
+}
+
+
+h1{
+
+font-size:
+clamp(
+2.8rem,
+6vw,
+4.5rem
+);
+
+}
+
+
+h2{
+
+font-size:
+clamp(
+2rem,
+4vw,
+3rem
+);
+
+}
+
+
+h3{
+
+font-size:
+1.8rem;
+
+}
+
+
+h4{
+
+font-size:
+1.4rem;
+
+}
+
+
+h5{
+
+font-size:
+1.1rem;
+
+}
+
+
+h6{
+
+font-size:
+1rem;
+
+}
+
+
+p{
+
+color:
+var(--text-secondary);
+
+font-size:
+1rem;
+
+}
+
+
+
+/* ==========================================
+   MEDIA
+========================================== */
+
+img{
+
+display:
+block;
+
+max-width:
+100%;
+
+}
+
+
+
+/* ==========================================
+   LINKS
+========================================== */
+
+a{
+
+text-decoration:
+none;
+
+color:
+inherit;
+
+transition:
+var(--transition);
+
+}
+
+
+
+/* ==========================================
+   LISTS
+========================================== */
+
+ul,
+ol{
+
+list-style:
+none;
+
+}
+
+
+
+/* ==========================================
+   FORMS
+========================================== */
+
+button,
+input,
+textarea,
+select{
+
+font:
+inherit;
+
+}
+
+
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+button{
+
+cursor:
+pointer;
+
+border:
+none;
+
+outline:
+none;
+
+background:
+transparent;
+
+transition:
+var(--transition);
+
+}
+
+
+
+/* ==========================================
+   UTILITIES
+========================================== */
+
+.text-center{
+
+text-align:
+center;
+
+}
+
+
+.hidden{
+
+display:
+none;
+
+}
+
+
+.w-100{
+
+width:
+100%;
+
+}

@@ -1,0 +1,189 @@
+/* ************************************************************
+                  Mobile First
+ ***********************************************************/
+
+/* ==========================================
+              NAVBAR 
+========================================== */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ==========================================
+CONTAINER
+========================================== */
+
+.navbar .container {
+  max-width: var(--container);
+  margin: auto;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* ==========================================
+LOGO
+========================================== */
+
+.logo {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--fashion-black);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-3);
+}
+.logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.logo span {
+  font-size: 20px;
+  /* color: var(--white); */
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+/* ==========================================
+NAV MENU
+========================================== */
+
+.nav-menu {
+  display: none;
+}
+
+/* ==========================================
+ACTIONS
+========================================== */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ==========================================
+SEARCH
+========================================== */
+
+.search-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-soft);
+  border-radius: 50%;
+}
+
+/* ==========================================
+CART
+========================================== */
+
+.cart-icon {
+  position: relative;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+#cart-count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fashion-gold);
+  color: var(--white);
+  font-size: 12px;
+}
+
+/* ==========================================
+TABLET
+========================================== */
+
+@media (min-width: 768px) {
+  .navbar .container {
+    padding: 20px 32px;
+  }
+
+  .logo span {
+    font-size: 1.6rem;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .nav-menu a {
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .nav-menu a:hover {
+    color: var(--fashion-black);
+  }
+
+  .nav-menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: var(--fashion-gold);
+    transition: var(--transition);
+  }
+
+  .nav-menu a:hover::after {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+  .navbar .container {
+    padding: 24px 48px;
+  }
+  .logo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+  }
+
+  .logo span {
+    font-size: 1.9rem;
+    margin-left: 15px;
+  }
+
+  .nav-menu {
+    gap: var(--space-6);
+  }
+
+  .search-btn {
+    width: 44px;
+
+    height: 44px;
+  }
+}
