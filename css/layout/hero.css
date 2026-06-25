@@ -1,0 +1,167 @@
+/* ************************************************************
+                  Mobile First
+ ***********************************************************/
+
+/* ==========================================
+              HERO
+========================================== */
+
+/* hero main container */
+.hero{
+     max-width: var(--container);
+     margin: auto;
+     padding: var(--space-6) var(--space-4) var(--space-7);
+     display: grid;
+     gap: var(--space-6);
+     background: var(--fashion-cream);
+}
+/* main hero text content  */
+
+.hero-text {
+    display: grid;
+    gap: var(--space-4);
+}
+/* hero heading one character per line */
+/* soft switcing between mobile tablet and desktop  */
+.hero h1 {
+   max-width:10ch;
+   font-size: clamp(2.5rem, 8vw,4.5rem);
+   line-height: .95;
+   letter-spacing:-.03em;
+    
+}
+
+
+.hero p {
+    max-width: 34rem;
+    color: var(--text-secondary);
+    font-size: 1.02rem;
+}
+
+
+
+/* hero top text */
+.hero-kicker {
+
+    width: fit-content;
+    padding: 6px 12px;
+    border: 1px solid rgba(199, 162, 106, 0.45);
+    border-radius: 999px;
+    color: var(--fashion-black);
+    background: var(--white);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+.hero-actions {
+    display: grid;
+    gap: var(--space-3);
+}
+
+
+/* primary and secondary buttons */
+
+.btn-primary,
+.btn-secondary{
+
+    min-height: 48px;
+    display: inline-flex;
+    padding: 0 var(--space-5);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+}
+
+.btn-primary {
+    background: var(--fashion-black);
+    color: var(--white);
+}
+
+
+.btn-secondary {
+    border: 1px solid var(--line);
+    background: var(--white);
+    color: var(--fashion-black);
+}
+
+/* on hover and focus designs */
+
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    background: var(--fashion-gold);
+    color: var(--fashion-black);
+}
+
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+    border-color: var(--fashion-gold);
+    color: var(--fashion-black);
+}
+
+
+
+
+/* hero video container */
+.hero-video{
+    aspect-ratio: 1 / 1;
+     border: 1px solid rgba(199, 162, 106, 0.3);
+    border-radius: var(--radius-md);
+    background: var(--fashion-black);
+      box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+/* fixed the video in contanier size */
+.hero-video video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+
+/* ==========================================
+              TABLET
+========================================== */
+
+@media (min-width: 768px) {
+    .hero {
+        padding: var(--space-8) var(--space-6);
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+    }
+
+    .hero-actions {
+        grid-template-columns: repeat(2, max-content);
+    }
+
+
+    .hero-video {
+        aspect-ratio: 4 / 4;
+        min-height: 460px;
+    }
+
+}
+
+
+/* ==========================================
+              DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+    .hero {
+        padding-left: var(--space-7);
+        padding-right: var(--space-7);
+    }
+
+
+    .hero h1 {
+        font-size: 4.8rem;
+    }
+
+}
