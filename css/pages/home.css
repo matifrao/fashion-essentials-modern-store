@@ -1,1 +1,96 @@
-/* -- header, footer, grid system  */
+/* ************************************************************
+                  Mobile First
+ ***********************************************************/
+
+/* ==========================================
+              HOME SECTIONS
+========================================== */
+
+.home-section 
+{
+  max-width: var(--container);
+  margin: auto;
+  padding: var(--space-7) var(--space-4) 0;
+}
+
+.section-heading {
+  margin-bottom: var(--space-5);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.section-heading span {
+  color: var(--fashion-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  max-width: 11ch;
+}
+
+
+.categories {
+  padding-top: var(--space-8);
+}
+
+
+.service-strip {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.service-strip div {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+  border-left: 3px solid var(--fashion-gold);
+  background: var(--fashion-cream);
+}
+
+.service-strip strong {
+  color: var(--fashion-black);
+}
+
+.service-strip span {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+
+
+
+/* ==========================================
+              TABLET
+========================================== */
+
+@media (min-width: 768px) {
+  .home-section {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+
+  .section-heading {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+
+  .service-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+
+
+/* ==========================================
+              DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+  .home-section {
+    padding-left: var(--space-7);
+    padding-right: var(--space-7);
+  }
+}

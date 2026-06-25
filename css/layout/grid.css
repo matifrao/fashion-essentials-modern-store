@@ -1,0 +1,127 @@
+/* ************************************************************
+                  Mobile First
+ ***********************************************************/
+
+/* ==========================================
+              CATEGORY GRID
+========================================== */
+
+.category-grid,
+.product-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.category-card,
+.product-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+}
+
+.category-card {
+  min-height: 188px;
+  padding: var(--space-5);
+  display: grid;
+  align-content: end;
+  gap: var(--space-2);
+}
+
+.category-card span {
+  color: var(--fashion-gold);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+
+.category-card h3,
+.product-card h3 {
+  font-size: 1.35rem;
+}
+.category-card p,
+.product-card p {
+  font-size: 0.95rem;
+}
+
+.category-card:hover,
+.category-card:focus-visible,
+.product-card:hover {
+  border-color: rgba(199, 162, 106, 0.7);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ==========================================
+              PRODUCT GRID
+========================================== */
+
+
+.product-card {
+  overflow: hidden;
+}
+
+.product-media {
+  min-height: 240px;
+  background:
+    linear-gradient(135deg, rgba(250, 248, 245, 0.88), rgba(242, 233, 222, 0.88)),
+    var(--fashion-beige);
+}
+
+.product-media-one {
+  background:
+    linear-gradient(135deg, rgba(250, 248, 245, 0.84), rgba(199, 162, 106, 0.26)),
+    var(--fashion-cream);
+}
+
+.product-media-two {
+  background:
+    linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(199, 162, 106, 0.42)),
+    var(--fashion-black);
+}
+
+.product-media-three {
+  background:
+    linear-gradient(135deg, rgba(242, 233, 222, 0.95), rgba(31, 81, 188, 0.18)),
+    var(--fashion-beige);
+}
+
+.product-info {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.product-info span {
+  color: var(--fashion-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.product-info strong {
+  color: var(--fashion-black);
+  font-size: 1.05rem;
+}
+
+
+
+
+
+
+
+/* ==========================================
+              TABLET
+========================================== */
+
+@media (min-width: 768px) {
+  .category-grid,
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
+  .product-media {
+    min-height: 260px;
+  }
+}
+
