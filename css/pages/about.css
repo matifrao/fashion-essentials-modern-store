@@ -1,0 +1,145 @@
+/* ************************************************************
+                  Mobile First
+ ***********************************************************/
+
+/* ==========================================
+              ABOUT PAGE
+========================================== */
+
+.page-hero {
+  max-width: var(--container);
+  margin: auto;
+  padding: var(--space-7) var(--space-4);
+  background: var(--fashion-cream);
+}
+
+.page-hero div {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.page-hero span,
+.about-story-text span,
+.about-feature span {
+  color: var(--fashion-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.page-hero h1 {
+  max-width: 11ch;
+  font-size: clamp(2.5rem, 12vw, 4.4rem);
+}
+
+.page-hero p {
+  max-width: 42rem;
+  font-size: 1.02rem;
+}
+
+.about-story,
+.about-feature {
+  max-width: var(--container);
+  margin: auto;
+  padding: var(--space-7) var(--space-4) 0;
+}
+
+.about-story {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.about-story-text {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.about-story-text h2,
+.about-feature h2 {
+  max-width: 13ch;
+}
+
+.about-values {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.about-values article {
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+}
+
+.about-values strong {
+  color: var(--fashion-gold);
+}
+
+.about-values h3 {
+  font-size: 1.3rem;
+}
+
+.about-feature {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.about-feature > div:first-child {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.about-feature-grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.about-feature-grid p {
+  padding: var(--space-4);
+  border-left: 3px solid var(--fashion-gold);
+  background: var(--fashion-cream);
+  color: var(--fashion-black);
+  font-weight: 700;
+}
+
+/* ==========================================
+              TABLET
+========================================== */
+
+@media (min-width: 768px) {
+  .page-hero,
+  .about-story,
+  .about-feature {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+
+  .about-story {
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: start;
+  }
+
+  .about-feature {
+    grid-template-columns: 0.8fr 1.2fr;
+    align-items: start;
+  }
+
+  .about-feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================
+              DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+  .page-hero,
+  .about-story,
+  .about-feature {
+    padding-left: var(--space-7);
+    padding-right: var(--space-7);
+  }
+}
