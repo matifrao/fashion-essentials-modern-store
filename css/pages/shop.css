@@ -1,0 +1,164 @@
+/* =================================
+SHOP PAGE
+================================= */
+
+.shop-page {
+  padding: var(--space-6) var(--space-4);
+}
+
+.shop-header {
+  text-align: center;
+
+  margin-bottom: var(--space-7);
+}
+
+.shop-header p {
+  max-width: 40rem;
+ 
+  margin: auto;
+}
+
+/* ================================
+GRID
+================================ */
+
+.product-grid {
+  display: grid;
+
+  gap: var(--space-5);
+}
+
+/* ================================
+CARD
+================================ */
+
+.product-card {
+  background: var(--bg-card);
+
+  padding: var(--space-4);
+
+  border: 1px solid var(--line);
+
+  border-radius: var(--radius-md);
+
+  box-shadow: var(--shadow-sm);
+
+  display: grid;
+
+  gap: var(--space-3);
+}
+
+.product-card img {
+  aspect-ratio: 1/1;
+
+  object-fit: cover;
+
+  border-radius: var(--radius-sm);
+}
+
+.price {
+  font-weight: 700;
+
+  font-size: 1.2rem;
+
+  color: var(--fashion-gold);
+}
+
+/* ================================
+COLORS
+================================ */
+
+.colors {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.color {
+  width: 22px;
+
+  height: 22px;
+
+  border-radius: 50%;
+
+  border: 1px solid #ddd;
+}
+
+/* 12 COLORS */
+
+.black {
+  background: #111;
+}
+.cream {
+  background: #f6f0e7;
+}
+.beige {
+  background: #d8c3a5;
+}
+.navy {
+  background: #0b1f33;
+}
+
+.olive {
+  background: #6b705c;
+}
+.burgundy {
+  background: #6f1d1b;
+}
+.camel {
+  background: #c19a6b;
+}
+.grey {
+  background: #8d99ae;
+}
+
+.pink {
+  background: #f8c8dc;
+}
+.blue {
+  background: #4d96ff;
+}
+.mint {
+  background: #95d5b2;
+}
+.lavender {
+  background: #b8a1e3;
+}
+
+/* BUTTON */
+
+.product-card button {
+  height: 46px;
+
+  background: var(--fashion-gold);
+
+  font-weight: 700;
+
+  border-radius: var(--radius-sm);
+}
+
+.product-card button:hover {
+  background: var(--fashion-beige);
+}
+
+/* ================================
+TABLET
+================================ */
+
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ================================
+DESKTOP
+================================ */
+
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

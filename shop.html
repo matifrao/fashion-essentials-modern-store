@@ -1,27 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fashion Essentials</title>
-  <link rel="stylesheet" href="css/main.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
 
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- *******Navbar placement from component
- by JS Script
- **********************************************
- 
-  -->
-<div id="navbar"></div>
-<!-- *******Footer placement from component
- by JS Script
- **********************************************
- 
-  -->
-<div id="footer"></div>
-<script src="js/layout.js"></script>
+    <title>Shop | Fashion Essentials</title>
 
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-</body>
+  <body>
+    <!-- NAVBAR -->
+    <div id="navbar"></div>
+
+    <!-- SHOP PAGE -->
+
+    <main class="shop-page">
+      <section class="shop-header">
+        <h1>Shop Collection</h1>
+
+        <p>
+          Explore elegant modest fashion designed for comfort and everyday
+          style.
+        </p>
+      </section>
+
+      <!-- PRODUCTS WILL LOAD HERE -->
+
+      <section class="product-grid" id="product-grid"></section>
+    </main>
+
+    <!-- FOOTER -->
+
+    <div id="footer"></div>
+
+    <script src="js/layout.js"></script>
+
+    <!-- PRODUCT RENDER -->
+
+    <script src="js/shop.js"></script>
+  </body>
+</html>
