@@ -1,28 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fashion Essentials</title>
-  <link rel="stylesheet" href="css/main.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart | Fashion Essentials</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-<body>
+  <body>
+    <div id="navbar"></div>
 
+    <main class="cart-page">
+      <section class="cart-header">
+        <span>Shopping bag</span>
+        <h1>Your Cart</h1>
+        <p>Review your selected pieces before moving to checkout.</p>
+      </section>
 
-<!-- *******Navbar placement from component
- by JS Script
- **********************************************
- 
-  -->
-<div id="navbar"></div>
-<!-- *******Footer placement from component
- by JS Script
- **********************************************
- 
-  -->
-<div id="footer"></div>
-<script src="js/layout.js"></script>
+      <div id="cart-items"></div>
 
+      <aside class="cart-summary" id="cart-summary">
+        <h2>Order Summary</h2>
+        <div>
+          <span>Subtotal</span>
+          <strong id="subtotal">PKR 0</strong>
+        </div>
+        <div>
+          <span>Delivery</span>
+          <strong>Calculated at checkout</strong>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <strong id="total">PKR 0</strong>
+        </div>
+        <button id="checkout" type="button">Checkout</button>
+        <a class="cart-link secondary" href="shop.html">Continue Shopping</a>
+      </aside>
+    </main>
+<!-- loading footer component -->
+    <div id="footer"></div>
 
-</body>
+    <!-- runing script on page -->
+    <script src="js/layout.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/cart-page.js"></script>
+  </body>
+</html>

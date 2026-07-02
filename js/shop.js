@@ -178,7 +178,11 @@ color=>
 
 </div>
 
-<button>
+<button
+class="add-cart"
+data-name="${product.name}"
+data-price="${product.price}"
+>
 Add to Cart
 </button>
 

@@ -1,0 +1,135 @@
+.cart-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: var(--space-7) 0 var(--space-8);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.cart-header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.cart-header span,
+.checkout-header span {
+  color: var(--fashion-gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.cart-header p,
+.checkout-header p {
+  max-width: 36rem;
+}
+
+#cart-items {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.cart-item,
+.cart-summary,
+.empty-cart {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.cart-item {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.cart-item h2 {
+  font-size: 1.25rem;
+}
+
+.cart-item strong {
+  color: var(--fashion-black);
+}
+
+.quantity-control {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 40px 44px 40px;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.quantity-control button {
+  height: 40px;
+  background: var(--bg-soft);
+  font-weight: 700;
+}
+
+.quantity-control span {
+  text-align: center;
+  font-weight: 700;
+}
+
+.remove-item {
+  width: max-content;
+  color: var(--error);
+  font-weight: 700;
+}
+
+.cart-summary,
+.empty-cart {
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.cart-summary div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: var(--space-3);
+}
+
+.cart-summary .summary-total {
+  border-bottom: 0;
+  font-size: 1.15rem;
+}
+
+#checkout,
+.place-order,
+.cart-link {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--fashion-gold);
+  color: var(--fashion-black);
+  font-weight: 700;
+  padding: 0 var(--space-5);
+}
+
+.cart-link.secondary {
+  background: var(--bg-soft);
+}
+
+@media (min-width: 768px) {
+  .cart-page {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+  }
+
+  .cart-header {
+    grid-column: 1 / -1;
+  }
+
+  .cart-item {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    align-items: center;
+  }
+}

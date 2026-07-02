@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout | Fashion Essentials</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+
+    <main class="checkout-page">
+      <section class="checkout-header">
+        <span>Secure checkout</span>
+        <h1>Checkout</h1>
+        <p>Enter your delivery details and confirm your Fashion Essentials order.</p>
+      </section>
+
+      <form class="checkout-form" id="checkout-form">
+        <section class="checkout-panel">
+          <h2>Contact Details</h2>
+
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+        </section>
+
+        <section class="checkout-panel">
+          <h2>Delivery Address</h2>
+
+          <label for="address">Street address</label>
+          <input id="address" name="address" type="text" autocomplete="street-address" required />
+
+          <div class="form-row">
+            <div>
+              <label for="city">City</label>
+              <input id="city" name="city" type="text" autocomplete="address-level2" required />
+            </div>
+
+            <div>
+              <label for="postal">Postal code</label>
+              <input id="postal" name="postal" type="text" autocomplete="postal-code" required />
+            </div>
+          </div>
+
+          <label for="notes">Order notes</label>
+          <textarea id="notes" name="notes" rows="4" placeholder="Optional"></textarea>
+        </section>
+
+        <section class="checkout-panel">
+          <h2>Payment</h2>
+
+          <label class="radio-option">
+            <input type="radio" name="payment" value="Cash on delivery" checked />
+            <span>Cash on delivery</span>
+          </label>
+
+          <label class="radio-option">
+            <input type="radio" name="payment" value="Bank transfer" />
+            <span>Bank transfer</span>
+          </label>
+        </section>
+
+        <button class="place-order" type="submit">Place Order</button>
+      </form>
+
+      <aside class="checkout-summary">
+        <h2>Order Summary</h2>
+        <div id="checkout-items"></div>
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <strong id="checkout-subtotal">PKR 0</strong>
+        </div>
+        <div class="summary-line">
+          <span>Delivery</span>
+          <strong>To be confirmed</strong>
+        </div>
+        <div class="summary-line total">
+          <span>Total</span>
+          <strong id="checkout-total">PKR 0</strong>
+        </div>
+      </aside>
+    </main>
+
+    <div id="footer"></div>
+    <script src="js/layout.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/checkout.js"></script>
+  </body>
+</html>
