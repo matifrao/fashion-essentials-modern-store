@@ -91,29 +91,43 @@ SEARCH
 /* ==========================================
 CART
 ========================================== */
-
-.cart-icon {
-  position: relative;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
+.cart-icon{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    font-size:1.4rem;
 }
+#cart-count{
 
-#cart-count {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--fashion-gold);
-  color: var(--white);
-  font-size: 12px;
+    position:absolute;
+
+    top:2px;
+
+    right:2px;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--fashion-gold);
+
+    color:var(--white);
+
+    font-size:.7rem;
+
+    font-weight:700;
 }
-
 /* ==========================================
 TABLET
 ========================================== */
