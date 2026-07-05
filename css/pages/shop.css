@@ -48,12 +48,34 @@ CARD
   gap: var(--space-3);
 }
 
+.product-link {
+  display: grid;
+  gap: var(--space-3);
+}
+
 .product-card img {
+  width: 100%;
   aspect-ratio: 1/1;
 
   object-fit: cover;
 
   border-radius: var(--radius-sm);
+}
+
+.product-description {
+  display: -webkit-box;
+  min-height: 3.2em;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  text-align: center;
 }
 
 .price {

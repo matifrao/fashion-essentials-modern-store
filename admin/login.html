@@ -5,10 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard | Fashion Essentials Admin</title>
+    <title>Login | Fashion Essentials Admin</title>
 
     <link rel="stylesheet" href="css/admin.css">
 </head>
 
 <body>
+    <main class="login-page">
+        <form class="login-card" id="login-form">
+            <img src="../images/Roundnew.jpg" alt="Fashion Essentials Logo">
+            <h1>Admin Login</h1>
+            <p>Sign in to manage products, categories, colors, sizes, and users.</p>
+
+            <label for="email">Email</label>
+            <input id="email" type="email" value="admin@fashion.local" required>
+
+            <label for="password">Password</label>
+            <input id="password" type="password" value="admin123" required>
+
+            <button class="admin-button" type="submit">Login</button>
+            <p class="login-error" id="login-error"></p>
+        </form>
+    </main>
+
+    <script src="js/login.js"></script>
 </body>

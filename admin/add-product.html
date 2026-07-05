@@ -38,7 +38,8 @@
 
                         <div class="form-group">
                             <label for="product-category">Category</label>
-                            <input id="product-category" placeholder="Caps, Hijab, Abaya">
+                            <input id="product-category" list="category-options" placeholder="Choose or create category">
+                            <datalist id="category-options"></datalist>
                         </div>
                     </div>
 
@@ -63,8 +64,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="product-image">Main Image Path</label>
-                        <input id="product-image" placeholder="images/products/cat1/p1.jpeg" required>
+                        <label for="product-image-upload">Product Image</label>
+                        <div class="image-upload">
+                            <img id="product-image-preview" alt="Product preview">
+                            <div>
+                                <input id="product-image-upload" type="file" accept="image/*">
+                                <input id="product-image" type="hidden">
+                                <input id="product-image-path" placeholder="Or paste image path / URL">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -75,12 +83,24 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="product-colors">Colors</label>
-                            <input id="product-colors" placeholder="black, cream, beige">
+                            <div class="option-builder">
+                                <select id="color-picker"></select>
+                                <input id="new-color" placeholder="Create new color">
+                                <button class="admin-button secondary" type="button" data-add-option="color">Add</button>
+                            </div>
+                            <div class="option-chips" id="color-chips"></div>
+                            <input id="product-colors" type="hidden">
                         </div>
 
                         <div class="form-group">
                             <label for="product-sizes">Sizes</label>
-                            <input id="product-sizes" placeholder="S, M, L, Free Size">
+                            <div class="option-builder">
+                                <select id="size-picker"></select>
+                                <input id="new-size" placeholder="Create new size">
+                                <button class="admin-button secondary" type="button" data-add-option="size">Add</button>
+                            </div>
+                            <div class="option-chips" id="size-chips"></div>
+                            <input id="product-sizes" type="hidden">
                         </div>
                     </div>
 

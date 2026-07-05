@@ -1,193 +1,77 @@
-const products = [
+const grid = document.getElementById("product-grid");
+const colorMap = {
+  cream: "#f6f0e7",
+  beige: "#d8c3a5",
+  navy: "#0b1f33",
+  olive: "#6b705c",
+  burgundy: "#6f1d1b",
+  camel: "#c19a6b",
+  grey: "#8d99ae",
+  gray: "#8d99ae",
+  pink: "#f8c8dc",
+  mint: "#95d5b2",
+  lavender: "#b8a1e3",
+};
 
-{
-name:"Premium Hijab Tube Caps",
-price:"PKR 299",
-image:"images/products/cat1/p1.jpeg",
-colors:["black","cream","beige","navy"]
-},
-
-{
-name:"4-in-One Hijab Caps",
-price:"PKR 350",
-image:"images/products/cat2/p2.jpg",
-colors:["olive","camel","grey"]
-},
-
-{
-name:"Premium Hijab Tie Caps",
-price:"PKR 350",
-image:"images/products/cat3/p3.jpg",
-colors:["pink","blue"]
-},
-
-{
-name:"Fancy Shimmer Glitter Hijab Tie Caps",
-price:"PKR 499",
-image:"images/products/cat4/p4.jpg",
-colors:["black","burgundy"]
-},
-
-{
-name:"Casual Hijab",
-price:"PKR 1,999",
-image:"images/products/p5.jpg",
-colors:["mint","cream"]
-},
-
-{
-name:"Everyday Dress",
-price:"PKR 3,999",
-image:"images/products/p6.jpg",
-colors:["lavender","grey"]
-},
-
-{
-name:"Elegant Abaya",
-price:"PKR 6,299",
-image:"images/products/p7.jpg",
-colors:["black","olive"]
-},
-
-{
-name:"Premium Shawl",
-price:"PKR 1,799",
-image:"images/products/p8.jpg",
-colors:["camel","navy"]
-},
-
-{
-name:"Soft Hijab",
-price:"PKR 2,199",
-image:"images/products/p9.jpg",
-colors:["mint","pink"]
-},
-
-{
-name:"Flow Abaya",
-price:"PKR 5,699",
-image:"images/products/p10.jpg",
-colors:["black","beige"]
-},
-
-{
-name:"Classic Dress",
-price:"PKR 4,499",
-image:"images/products/p11.jpg",
-colors:["blue","grey"]
-},
-
-{
-name:"Modern Abaya",
-price:"PKR 7,499",
-image:"images/products/p12.jpg",
-colors:["burgundy","black"]
-},
-
-{
-name:"Minimal Hijab",
-price:"PKR 2,299",
-image:"images/products/p13.jpg",
-colors:["cream","olive"]
-},
-
-{
-name:"Daily Wear",
-price:"PKR 3,299",
-image:"images/products/p14.jpg",
-colors:["camel","pink"]
-},
-
-{
-name:"Premium Collection",
-price:"PKR 6,899",
-image:"images/products/p15.jpg",
-colors:["navy","grey"]
-},
-
-{
-name:"Soft Collection",
-price:"PKR 2,999",
-image:"images/products/p16.jpg",
-colors:["lavender","mint"]
-},
-
-{
-name:"Elegant Wear",
-price:"PKR 4,899",
-image:"images/products/p17.jpg",
-colors:["black","cream"]
-},
-
-{
-name:"Summer Hijab",
-price:"PKR 2,399",
-image:"images/products/p18.jpg",
-colors:["beige","pink"]
-},
-
-{
-name:"Luxury Dress",
-price:"PKR 7,899",
-image:"images/products/p19.jpg",
-colors:["olive","navy"]
-},
-
-{
-name:"Exclusive Abaya",
-price:"PKR 8,499",
-image:"images/products/p20.jpg",
-colors:["black","camel"]
+function swatchColor(color) {
+  return colorMap[String(color).toLowerCase()] || color;
 }
 
-];
+function renderProducts(products) {
+  const activeProducts = products.filter((product) => product.status !== "Draft");
 
+  if (!activeProducts.length) {
+    grid.innerHTML = `<p class="empty-state">No products available yet.</p>`;
+    return;
+  }
 
-const grid =
-document.getElementById("product-grid");
+  grid.innerHTML = activeProducts
+    .map(
+      (product) => `
+        <article class="product-card">
+          <a href="product.html?id=${product.id}" class="product-link">
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+          </a>
 
+          <p class="price">${product.price}</p>
+          <p class="product-description">${product.description || ""}</p>
 
-products.forEach(product=>{
+          <div class="colors">
+            ${(product.colors || [])
+              .map(
+                (color) =>
+                  `<span class="color" title="${color}" style="background:${swatchColor(
+                    color
+                  )}"></span>`
+              )
+              .join("")}
+          </div>
 
-grid.innerHTML += `
+          <button
+            class="add-cart"
+            data-id="${product.id}"
+            data-name="${product.name}"
+            data-price="${product.price}"
+          >
+            Add to Cart
+          </button>
+        </article>
+      `
+    )
+    .join("");
+}
 
-<article class="product-card">
+async function loadProducts() {
+  try {
+    renderProducts(await FashionProducts.getProducts());
+  } catch (error) {
+    grid.innerHTML = `
+      <p class="empty-state">
+        Products need the local server. Run node server.js and open http://localhost:3000/shop.html.
+      </p>
+    `;
+  }
+}
 
-<img
-src="${product.image}"
-alt="${product.name}"
->
-
-<h3>${product.name}</h3>
-
-<p class="price">
-${product.price}
-</p>
-
-<div class="colors">
-
-${product.colors
-.map(
-color=>
-
-`<span class="color ${color}"></span>`
-
-)
-
-.join("")}
-
-</div>
-
-<button
-class="add-cart"
-data-name="${product.name}"
-data-price="${product.price}"
->
-Add to Cart
-</button>
-
-</article>
-
-`;
-
-});
+loadProducts();
