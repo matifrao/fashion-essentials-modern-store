@@ -1,0 +1,16 @@
+/* ==================================================
+        Fashion Essentials Admin
+================================================== */
+
+
+/* Shared base styles */
+@import url("../../css/base/root.css");
+
+/* Admin components */
+@import url("layout.css");
+@import url("sidebar.css");
+@import url("topbar.css");
+@import url("cards.css");
+@import url("table.css");
+@import url("forms.css");
+@import url("responsive.css");

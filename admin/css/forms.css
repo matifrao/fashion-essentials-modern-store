@@ -1,0 +1,71 @@
+.admin-form{
+    display:grid;
+    gap:var(--space-4);
+    padding:var(--space-5);
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    background:var(--white);
+    box-shadow:var(--shadow-sm);
+}
+
+.form-grid{
+    display:grid;
+    gap:var(--space-4);
+}
+
+.form-group{
+    display:grid;
+    gap:var(--space-2);
+}
+
+.form-group label{
+    color:var(--fashion-black);
+    font-weight:700;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    min-height:46px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    background:var(--white);
+    color:var(--text-main);
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.form-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--space-3);
+}
+
+.admin-button{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:var(--space-2);
+    padding:0 var(--space-5);
+    border:1px solid var(--fashion-gold);
+    border-radius:var(--radius-sm);
+    background:var(--fashion-gold);
+    color:var(--fashion-black);
+    font-weight:800;
+}
+
+.admin-button.secondary{
+    border-color:var(--line);
+    background:var(--white);
+}
+
+.admin-button:hover{
+    transform:translateY(-1px);
+    box-shadow:var(--shadow-sm);
+}

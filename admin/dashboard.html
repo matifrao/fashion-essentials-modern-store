@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Fashion Essentials Admin</title>
+
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <!-- ===============================
+            Admin Layout
+    ================================ -->
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <aside id="sidebar"></aside>
+
+        <!-- Main Area -->
+        <div class="admin-main">
+
+            <!-- Topbar -->
+            <header id="topbar"></header>
+
+            <!-- Dashboard Content -->
+            <main class="dashboard">
+
+                <!-- Page Heading -->
+                <section class="page-header">
+
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Welcome back, Admin 👋</p>
+                    </div>
+
+                </section>
+
+                <!-- Statistics -->
+                <section class="stats">
+
+                    <article class="stat-card">
+                        <span class="stat-icon">📦</span>
+
+                        <div>
+                            <h2>Total Products</h2>
+                            <strong>0</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-icon">📂</span>
+
+                        <div>
+                            <h2>Categories</h2>
+                            <strong>0</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-icon">⚠</span>
+
+                        <div>
+                            <h2>Low Stock</h2>
+                            <strong>0</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <span class="stat-icon">⭐</span>
+
+                        <div>
+                            <h2>Featured</h2>
+                            <strong>0</strong>
+                        </div>
+                    </article>
+
+                </section>
+
+                <!-- Recent Products -->
+
+                <section class="recent-products">
+
+                    <div class="section-title">
+
+                        <h2>Recent Products</h2>
+
+                        <a href="products.html">View All</a>
+
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Image</th>
+                                    <th>Product</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="recent-products">
+
+                                <!-- JavaScript will insert products here -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="../js/products-data.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

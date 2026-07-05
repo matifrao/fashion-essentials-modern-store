@@ -1,0 +1,147 @@
+/* ************************************************************
+                    SIDEBAR
+************************************************************* */
+
+/* ==========================================
+              SIDEBAR
+========================================== */
+
+.sidebar{
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    background:var(--white);
+    border-right:1px solid var(--line);
+    box-shadow:var(--shadow-sm);
+}
+
+/* ==========================================
+              LOGO
+========================================== */
+
+.sidebar-logo{
+
+    padding:var(--space-5);
+
+    border-bottom:1px solid var(--line);
+
+}
+
+.sidebar .logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:var(--space-3);
+
+}
+
+.sidebar .logo img{
+
+    width:52px;
+
+    height:52px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+.sidebar .logo span{
+
+    font-size:1.05rem;
+
+    font-weight:700;
+
+    color:var(--fashion-black);
+    line-height:1.25;
+
+}
+
+/* ==========================================
+              NAVIGATION
+========================================== */
+
+.sidebar-nav{
+
+    display:grid;
+
+    gap:8px;
+
+    padding:var(--space-5);
+
+}
+
+.sidebar-nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 18px;
+
+    border-radius:var(--radius-sm);
+
+    color:var(--text-secondary);
+
+    font-weight:600;
+
+    transition:var(--transition);
+    white-space:nowrap;
+
+}
+
+.sidebar-nav a:hover{
+
+    background:var(--fashion-cream);
+
+    color:var(--fashion-black);
+
+}
+
+.sidebar-nav a.active{
+
+    background:var(--fashion-gold);
+
+    color:var(--fashion-black);
+    box-shadow:0 8px 18px rgba(199,162,106,.22);
+
+}
+
+/* ==========================================
+              FOOTER
+========================================== */
+
+.sidebar-footer{
+
+    margin-top:auto;
+
+    padding:var(--space-5);
+
+    border-top:1px solid var(--line);
+
+}
+
+.sidebar-footer a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-weight:600;
+
+    color:var(--text-secondary);
+
+}
+
+.sidebar-footer a:hover{
+
+    color:var(--fashion-black);
+
+}
