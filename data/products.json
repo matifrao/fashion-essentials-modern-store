@@ -1,0 +1,109 @@
+[
+  {
+    "id": "premium-hijab-tube-caps",
+    "name": "Premium Hijab Tube Caps",
+    "category": "Caps",
+    "price": "PKR 299",
+    "stock": 24,
+    "status": "Active",
+    "image": "images/products/cat1/p1.jpeg",
+    "images": [
+      "images/products/cat1/p1.jpeg"
+    ],
+    "colors": [
+      "black",
+      "cream",
+      "beige",
+      "navy"
+    ],
+    "sizes": [
+      "Free Size"
+    ],
+    "description": "Soft everyday tube caps designed for comfortable hijab styling.",
+    "related": [
+      "4-in-One Hijab Caps",
+      "Premium Hijab Tie Caps"
+    ],
+    "created_at": "2026-07-29 09:29:24",
+    "updated_at": "2026-07-29T09:29:24.160Z"
+  },
+  {
+    "id": "4-in-one-hijab-caps",
+    "name": "4-in-One Hijab Caps",
+    "category": "Caps",
+    "price": "PKR 350",
+    "stock": 18,
+    "status": "Active",
+    "image": "images/products/cat2/p2.jpg",
+    "images": [
+      "images/products/cat2/p2.jpg"
+    ],
+    "colors": [
+      "olive",
+      "camel",
+      "grey"
+    ],
+    "sizes": [
+      "Free Size"
+    ],
+    "description": "Flexible hijab caps for easy daily layering.",
+    "related": [
+      "Premium Hijab Tube Caps",
+      "Premium Hijab Tie Caps"
+    ],
+    "created_at": "2026-07-29 09:29:24",
+    "updated_at": "2026-07-29T09:29:24.283Z"
+  },
+  {
+    "id": "premium-hijab-tie-caps",
+    "name": "Premium Hijab Tie Caps",
+    "category": "Caps",
+    "price": "PKR 350",
+    "stock": 16,
+    "status": "Active",
+    "image": "images/products/cat3/p3.jpg",
+    "images": [
+      "images/products/cat3/p3.jpg"
+    ],
+    "colors": [
+      "pink",
+      "blue"
+    ],
+    "sizes": [
+      "Free Size"
+    ],
+    "description": "Tie-back caps with a secure fit and soft finish.",
+    "related": [
+      "Premium Hijab Tube Caps",
+      "Fancy Shimmer Glitter Hijab Tie Caps"
+    ],
+    "created_at": "2026-07-29 09:29:24",
+    "updated_at": "2026-07-29T09:29:24.408Z"
+  },
+  {
+    "id": "fancy-shimmer-glitter-hijab-tie-caps",
+    "name": "Fancy Shimmer Glitter Hijab Tie Caps",
+    "category": "Caps",
+    "price": "PKR 499",
+    "stock": 10,
+    "status": "Active",
+    "image": "images/products/cat4/p4.jpg",
+    "images": [
+      "images/products/cat4/p4.jpg"
+    ],
+    "colors": [
+      "black",
+      "burgundy"
+    ],
+    "sizes": [
+      "Free Size"
+    ],
+    "description": "A dressier shimmer cap for special modest fashion looks.",
+    "related": [
+      "Premium Hijab Tie Caps",
+      "Premium Hijab Tube Caps"
+    ],
+    "created_at": "2026-07-29 09:29:24",
+    "updated_at": "2026-07-29T09:29:24.613Z"
+  }
+]
