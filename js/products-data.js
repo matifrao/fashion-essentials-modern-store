@@ -1,5 +1,6 @@
 const FashionProducts = (() => {
-  const apiBase = "/api/products";
+  const LOCAL_API = "http://localhost:3000/api/products";
+  const JSON_FILE = "data/products.json";
 
   function slugify(value) {
     return String(value)
@@ -12,65 +13,79 @@ const FashionProducts = (() => {
   function splitList(value) {
     return String(value || "")
       .split(",")
-      .map((item) => item.trim())
+      .map(item => item.trim())
       .filter(Boolean);
   }
 
   async function request(url, options = {}) {
     const response = await fetch(url, {
-      headers: { "Content-Type": "application/json", ...(options.headers || {}) },
-      credentials: "same-origin",
+      cache: "no-store",
+      credentials: "include",
       ...options,
     });
 
-    const data = await response.json().catch(() => ({}));
-
     if (!response.ok) {
-      throw new Error(data.error || "Request failed");
+      throw new Error(`Request failed (${response.status})`);
     }
 
-    return data;
+    return response.json();
   }
 
   function normalizeProduct(product) {
     return {
       ...product,
       id: product.id || slugify(product.name),
-      image: product.image || product.images?.[0] || "",
-      images: product.images?.length ? product.images : [product.image].filter(Boolean),
-      colors: product.colors || [],
-      sizes: product.sizes || [],
-      related: product.related || [],
+      image: product.image || (product.images?.[0] ?? ""),
+      images:
+        Array.isArray(product.images) && product.images.length
+          ? product.images
+          : product.image
+          ? [product.image]
+          : [],
+      colors: Array.isArray(product.colors) ? product.colors : [],
+      sizes: Array.isArray(product.sizes) ? product.sizes : [],
+      related: Array.isArray(product.related) ? product.related : [],
       status: product.status || "Active",
       stock: Number(product.stock) || 0,
     };
   }
 
   async function getProducts() {
-    return request(apiBase);
+    const products = await request(JSON_FILE);
+    return products.map(normalizeProduct);
   }
 
   async function getProduct(id) {
-    return request(`${apiBase}/${encodeURIComponent(id)}`);
+    const products = await getProducts();
+    return products.find(p => p.id === id) || null;
   }
 
+  // Local Admin Only
   async function upsertProduct(product) {
-    return request(apiBase, {
+    const saved = await request(LOCAL_API, {
       method: "POST",
-      body: JSON.stringify(normalizeProduct(product)),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    });
+
+    return normalizeProduct(saved);
+  }
+
+  // Local Admin Only
+  async function deleteProduct(id) {
+    return request(`${LOCAL_API}/${encodeURIComponent(id)}`, {
+      method: "DELETE",
     });
   }
 
-  async function deleteProduct(id) {
-    return request(`${apiBase}/${encodeURIComponent(id)}`, { method: "DELETE" });
-  }
-
   return {
-    deleteProduct,
-    getProduct,
-    getProducts,
     slugify,
     splitList,
+    getProducts,
+    getProduct,
     upsertProduct,
+    deleteProduct,
   };
 })();

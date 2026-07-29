@@ -203,6 +203,15 @@ function getProducts() {
     .all()
     .map(productFromRow);
 }
+function exportProductsJson() {
+  const products = getProducts();
+
+  fs.writeFileSync(
+    path.join(dataDir, "products.json"),
+    JSON.stringify(products, null, 2),
+    "utf8"
+  );
+}
 
 function readBody(req) {
   return new Promise((resolve, reject) => {
@@ -310,22 +319,29 @@ async function handleApi(req, res) {
     sendJson(res, product ? 200 : 404, product || { error: "Product not found" });
     return;
   }
+if (req.url === "/api/products" && req.method === "POST") {
+  if (!requireAuth(req, res)) return;
 
-  if (req.url === "/api/products" && req.method === "POST") {
-    if (!requireAuth(req, res)) return;
-    const product = await readBody(req);
-    sendJson(res, 200, saveProduct(product));
-    return;
-  }
+  const product = await readBody(req);
+  const saved = saveProduct(product);
 
-  if (req.url.startsWith("/api/products/") && req.method === "DELETE") {
-    if (!requireAuth(req, res)) return;
-    const id = decodeURIComponent(req.url.split("/").pop());
-    db.prepare("DELETE FROM products WHERE id = ?").run(id);
-    sendJson(res, 200, { ok: true });
-    return;
-  }
+  exportProductsJson();
 
+  sendJson(res, 200, saved);
+  return;
+}
+ if (req.url.startsWith("/api/products/") && req.method === "DELETE") {
+  if (!requireAuth(req, res)) return;
+
+  const id = decodeURIComponent(req.url.split("/").pop());
+
+  db.prepare("DELETE FROM products WHERE id = ?").run(id);
+
+  exportProductsJson();
+
+  sendJson(res, 200, { ok: true });
+  return;
+}
   sendJson(res, 404, { error: "API route not found" });
 }
 
@@ -384,6 +400,7 @@ function serveStatic(req, res) {
 }
 
 seedData();
+exportProductsJson();
 
 http
   .createServer((req, res) => {
