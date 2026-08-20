@@ -1,0 +1,120 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Category | NexPage Commerce Platform</title>
+
+    <meta name="description" content="Manage product categories in NexPage Commerce Platform." />
+
+    <link rel="stylesheet" href="../css/main.css">
+  </head>
+
+  <body data-page="categories">
+    <!--==========================================
+        Admin Layout
+    ==========================================-->
+
+    <div class="admin-layout">
+      <!-- Sidebar -->
+
+      <div id="sidebar"></div>
+
+      <!-- Main -->
+
+      <div class="dashboard__main">
+        <!-- Topbar -->
+
+        <div id="topbar"></div>
+
+        <!--==================================
+                Content
+            ==================================-->
+
+        <main class="content">
+          <form id="categoryForm" class="category-form" autocomplete="off">
+            <!--==================================
+                        Page Header
+                    ==================================-->
+
+            <section class="page-header">
+              <div>
+                <h1>Add Category</h1>
+
+                <p>Create and organize product categories.</p>
+              </div>
+
+              <div class="page-header__actions">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">
+                  Cancel
+                </button>
+
+                <button type="button" class="btn btn-outline" id="previewBtn">
+                  Preview
+                </button>
+
+                <button type="submit" class="btn btn-primary">
+                  Save Category
+                </button>
+              </div>
+            </section>
+
+            <!--==================================
+                        Category Layout
+                    ==================================-->
+
+            <div class="category-layout">
+              <!--==================================
+                            Main Column
+                        ==================================-->
+
+              <div class="category-main">
+                <!-- General -->
+
+                <section class="card" id="generalCard"></section>
+
+                <!-- Image -->
+
+                <section class="card" id="imageCard"></section>
+
+                <!-- SEO -->
+
+                <section class="card" id="seoCard"></section>
+              </div>
+
+              <!--==================================
+                            Sidebar
+                        ==================================-->
+
+              <aside class="category-sidebar">
+                <!-- Publish -->
+
+                <section class="card" id="publishCard"></section>
+
+                <!-- Status -->
+
+                <section class="card" id="statusCard"></section>
+
+                <!-- Parent -->
+
+                <section class="card" id="parentCard"></section>
+              </aside>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <!--==========================================
+        Scripts
+    ==========================================-->
+<script type="module" src="../js/components/sidebar.js"></script>
+
+<script type="module" src="../js/components/topbar.js"></script>
+
+<script type="module" src="../js/category/index.js"></script>
+  </body>
+</html>

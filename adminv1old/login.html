@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Fashion Essentials Admin V1</title>
+
+    <meta name="description"
+          content="Fashion Essentials Admin Panel">
+
+    <link rel="stylesheet"
+          href="css/main.css">
+
+</head>
+
+<body>
+
+    <!--==========================================
+        Login Page
+    ===========================================-->
+
+    <main class="login">
+
+        <!--======================================
+            Background
+        =======================================-->
+
+        <div class="login__background">
+
+            <span class="login__shape login__shape--1"></span>
+
+            <span class="login__shape login__shape--2"></span>
+
+            <span class="login__shape login__shape--3"></span>
+
+        </div>
+
+        <!--======================================
+            Container
+        =======================================-->
+
+        <div class="login__container">
+
+            <!--==================================
+                Branding
+            ==================================-->
+
+            <section class="login__branding">
+
+                <img
+                    src="images/logo/logo.svg"
+                    alt="Fashion Essentials"
+                    class="login__logo">
+
+                <h1 class="login__brand">
+
+                    Fashion Essentials
+
+                </h1>
+
+                <p class="login__tagline">
+
+                    Professional Store Management
+
+                </p>
+
+            </section>
+
+            <!--==================================
+                Login Card
+            ==================================-->
+
+            <section class="login__card">
+
+                <header class="login__header">
+
+                    <h2 class="login__title">
+
+                        Welcome Back
+
+                    </h2>
+
+                    <p class="login__subtitle">
+
+                        Sign in to continue
+
+                    </p>
+
+                </header>
+
+                <!--==================================
+                    Login Form
+                ==================================-->
+
+                <form
+                    id="loginForm"
+                    class="login__form"
+                    autocomplete="on"
+                    novalidate>
+
+                    <!-- Email -->
+
+                    <div class="login__group">
+
+                        <label
+                            for="email"
+                            class="login__label">
+
+                            Email Address
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="login__input"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required>
+
+                    </div>
+
+                    <!-- Password -->
+
+                    <div class="login__group">
+
+                        <label
+                            for="password"
+                            class="login__label">
+
+                            Password
+
+                        </label>
+
+                        <div class="login__password">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="login__input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="login__toggle"
+                                aria-label="Show Password">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Options -->
+
+                    <div class="login__options">
+
+                        <label class="login__remember">
+
+                            <input
+                                type="checkbox"
+                                id="remember">
+
+                            <span>
+
+                                Remember Me
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <!-- Error -->
+
+                    <div
+                        id="loginError"
+                        class="login__error"
+                        hidden>
+
+                    </div>
+
+                    <!-- Button -->
+
+                    <button
+                        type="submit"
+                        class="login__button">
+
+                        <span>
+
+                            Sign In
+
+                        </span>
+
+                    </button>
+
+                    <!-- Loading -->
+
+                    <div
+                        id="loginLoader"
+                        class="login__loader"
+                        hidden>
+
+                        Signing you in...
+
+                    </div>
+
+                </form>
+
+                <!--==================================
+                    Footer
+                ==================================-->
+
+                <footer class="login__footer">
+
+                    <p>
+
+                        Version 1.0
+
+                    </p>
+
+                    <p>
+
+                        © 2026 Fashion Essentials
+
+                    </p>
+
+                </footer>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <script src="js/pages/login.js"></script>
+
+</body>
+
+</html>

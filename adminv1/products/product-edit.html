@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Product | Fashion Essentials Admin V1</title>
+
+    <meta
+        name="description"
+        content="Edit Product">
+
+    <link
+        rel="stylesheet"
+        href="css/main.css">
+
+</head>
+
+<body data-page="products">
+
+    <!--==========================================
+        Admin Layout
+    ==========================================-->
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+
+        <div id="sidebar"></div>
+
+        <!-- Main -->
+
+        <div class="dashboard__main">
+
+            <!-- Topbar -->
+
+            <div id="topbar"></div>
+
+            <!--==================================
+                Content
+            ==================================-->
+
+            <main class="content">
+
+                <form
+                    id="productEditForm"
+                    class="product-form"
+                    autocomplete="off">
+
+                    <!--==================================
+                        Page Header
+                    ==================================-->
+
+                    <section class="page-header">
+
+                        <div>
+
+                            <h1>
+
+                                Edit Product
+
+                            </h1>
+
+                            <p>
+
+                                Update product information.
+
+                            </p>
+
+                        </div>
+
+                        <div class="page-header__actions">
+
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                id="cancelBtn">
+
+                                Cancel
+
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
+
+                                Update Product
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                    <!--==================================
+                        Product Information
+                    ==================================-->
+
+                    <section class="card">
+
+                        <div class="card__header">
+
+                            <h2>
+
+                                Product Information
+
+                            </h2>
+
+                        </div>
+
+                        <div class="card__body">
+
+                            <div class="form-grid">
+
+                                <input
+                                    type="hidden"
+                                    id="productId">
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Product Name
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="productName"
+                                        required>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Product Slug
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="productSlug">
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        SKU
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="productSku">
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Barcode
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="productBarcode">
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Category
+
+                                    </label>
+
+                                    <select id="productCategory">
+
+                                        <option value="">
+
+                                            Select Category
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label>
+
+                                        Brand
+
+                                    </label>
+
+                                    <select id="productBrand">
+
+                                        <option value="">
+
+                                            Select Brand
+
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group form-group--full">
+
+                                    <label>
+
+                                        Description
+
+                                    </label>
+
+                                    <textarea
+                                        id="productDescription"
+                                        rows="6"></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </form>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!--==========================================
+        Scripts
+    ==========================================-->
+
+    <script
+        type="module"
+        src="js/components/sidebar.js"></script>
+
+    <script
+        type="module"
+        src="js/components/topbar.js"></script>
+
+    <script
+        type="module"
+        src="js/pages/product-edit.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+/*==========================================================
+  NexPage Loader
+==========================================================*/
+
+#nx-loader{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.75);
+
+    backdrop-filter:blur(2px);
+
+    z-index:999999;
+
+}
+
+.nx-loader__box{
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:32px;
+
+    min-width:220px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:20px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+}
+
+.nx-loader__spinner{
+
+    width:48px;
+
+    height:48px;
+
+    border:4px solid #e5e7eb;
+
+    border-top:4px solid var(--primary,#2563eb);
+
+    border-radius:50%;
+
+    animation:nxSpin .8s linear infinite;
+
+}
+
+.nx-loader__message{
+
+    text-align:center;
+
+    font-size:14px;
+
+    color:#555;
+
+}
+
+@keyframes nxSpin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}

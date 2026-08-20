@@ -1,0 +1,236 @@
+/*==========================================================
+  Fashion Essentials Admin V1
+  File: toast.css
+  Description: Toast Notification Component
+  Version: 1.0
+==========================================================*/
+
+
+/*==========================================================
+  Toast Container
+==========================================================*/
+
+.toast-container{
+    display:flex;
+    flex-direction:column;
+    gap:var(--space-3);
+    pointer-events:none;
+    position:fixed;
+    right:var(--space-4);
+    top:var(--space-4);
+    width:min(360px,calc(100vw - 32px));
+    z-index:10000;
+}
+
+
+/*==========================================================
+  Toast
+==========================================================*/
+
+.toast{
+    align-items:flex-start;
+    background:var(--card-bg);
+    border-left:5px solid var(--primary);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+    display:flex;
+    gap:var(--space-4);
+    opacity:0;
+    overflow:hidden;
+    padding:var(--space-4);
+    pointer-events:auto;
+    transform:translateX(120%);
+    transition:
+        transform .30s ease,
+        opacity .30s ease;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(0);
+}
+
+
+/*==========================================================
+  Icon
+==========================================================*/
+
+.toast__icon{
+    align-items:center;
+    display:flex;
+    flex-shrink:0;
+    font-size:1.35rem;
+    justify-content:center;
+    width:28px;
+}
+
+
+/*==========================================================
+  Content
+==========================================================*/
+
+.toast__content{
+    flex:1;
+}
+
+.toast__title{
+    color:var(--text);
+    font-size:var(--font-size-md);
+    font-weight:var(--fw-semibold);
+    margin:0 0 4px;
+}
+
+.toast__message{
+    color:var(--text-light);
+    font-size:var(--font-size-sm);
+    line-height:1.5;
+    margin:0;
+}
+
+
+/*==========================================================
+  Close Button
+==========================================================*/
+
+.toast__close{
+    align-items:center;
+    background:none;
+    border:none;
+    border-radius:50%;
+    color:var(--text-light);
+    cursor:pointer;
+    display:flex;
+    font-size:1rem;
+    height:32px;
+    justify-content:center;
+    transition:var(--transition);
+    width:32px;
+}
+
+.toast__close:hover{
+    background:var(--gray-100);
+}
+
+
+/*==========================================================
+  Progress Bar
+==========================================================*/
+
+.toast__progress{
+    background:rgba(0,0,0,.08);
+    bottom:0;
+    height:4px;
+    left:0;
+    position:absolute;
+    width:100%;
+}
+
+.toast__progress::before{
+    animation:toastProgress 5s linear forwards;
+    background:currentColor;
+    content:"";
+    display:block;
+    height:100%;
+    width:100%;
+}
+
+
+/*==========================================================
+  Types
+==========================================================*/
+
+.toast-success{
+    border-left-color:var(--success);
+    color:var(--success);
+}
+
+.toast-warning{
+    border-left-color:var(--warning);
+    color:var(--warning);
+}
+
+.toast-danger{
+    border-left-color:var(--danger);
+    color:var(--danger);
+}
+
+.toast-info{
+    border-left-color:var(--info);
+    color:var(--info);
+}
+
+.toast-primary{
+    border-left-color:var(--primary);
+    color:var(--primary);
+}
+
+
+/*==========================================================
+  Animation
+==========================================================*/
+
+@keyframes toastProgress{
+
+    from{
+
+        width:100%;
+
+    }
+
+    to{
+
+        width:0;
+
+    }
+
+}
+
+
+/*==========================================================
+  Mobile
+==========================================================*/
+
+@media (max-width:767px){
+
+    .toast-container{
+
+        left:var(--space-4);
+        right:var(--space-4);
+        top:var(--space-4);
+        width:auto;
+
+    }
+
+}
+
+
+/*==========================================================
+  Tablet
+==========================================================*/
+
+@media (min-width:768px){
+
+    .toast-container{
+
+        right:var(--space-6);
+        top:var(--space-6);
+
+    }
+
+}
+
+
+/*==========================================================
+  Desktop
+==========================================================*/
+
+@media (min-width:1200px){
+
+    .toast-container{
+
+        right:var(--space-7);
+        top:var(--space-7);
+
+    }
+
+}

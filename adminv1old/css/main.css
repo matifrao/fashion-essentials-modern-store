@@ -1,0 +1,64 @@
+/*==========================================================*
+* NexPage Commerce Platform
+* File: main.css
+* Description: Master Stylesheet
+* Version: 2.0
+*==========================================================*/
+
+
+/*==========================================================*
+* Google Fonts
+*==========================================================*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+
+/*==========================================================*
+* Base
+*==========================================================*/
+
+@import url("base/variables.css");
+@import url("base/reset.css");
+@import url("base/typography.css");
+@import url("base/utilities.css");
+
+
+/*==========================================================*
+* Layout
+*==========================================================*/
+
+@import url("layout/sidebar.css");
+@import url("layout/topbar.css");
+@import url("layout/content.css");
+@import url("layout/grid.css");
+@import url("layout/footer.css");
+
+
+/*==========================================================*
+* Components
+*==========================================================*/
+
+@import url("components/buttons.css");
+@import url("components/cards.css");
+@import url("components/forms.css");
+@import url("components/tables.css");
+@import url("components/modal.css");
+@import url("components/toast.css");
+@import url("components/loader.css");
+
+
+/*==========================================================*
+* Pages
+*==========================================================*/
+
+@import url("pages/login.css");
+@import url("pages/dashboard.css");
+@import url("pages/products.css");
+@import url("pages/product-form.css");
+
+
+/*==========================================================*
+* Modules
+*==========================================================*/
+
+@import url("modules/categories.css");

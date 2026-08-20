@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Product | Fashion Essentials Admin V1</title>
+
+    <meta name="description" content="Product Editor" />
+
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body data-page="products">
+    <!--==========================================
+        Admin Layout
+    ==========================================-->
+
+    <div class="admin-layout">
+      <!-- Sidebar -->
+
+      <div id="sidebar"></div>
+
+      <!-- Main -->
+
+      <div class="dashboard__main">
+        <!-- Topbar -->
+
+        <div id="topbar"></div>
+
+        <!--==================================
+                Content
+        ==================================-->
+
+        <main class="content">
+          <form id="productForm" class="product-form" autocomplete="off">
+            <!--==========================================
+                Product Header
+            ==========================================-->
+
+            <section class="page-header">
+              <div>
+                <h1 id="pageTitle">Add Product</h1>
+
+                <p id="pageDescription">Create a new product for your store.</p>
+              </div>
+
+              <div class="page-header__actions">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">
+                  Cancel
+                </button>
+
+                <button type="button" class="btn btn-outline" id="previewBtn">
+                  Preview
+                </button>
+
+                <button type="submit" class="btn btn-primary" id="saveBtn">
+                  Save Product
+                </button>
+              </div>
+            </section>
+
+            <!--==========================================
+                Product Layout
+            ==========================================-->
+
+            <div class="product-layout">
+              <!--======================================
+                  Left Column
+              ======================================-->
+
+              <div class="product-main">
+                <!--======================================
+                    General Information
+                =======================================-->
+
+                <section class="card" id="generalCard">
+                  <div class="card__header">
+                    <h2>General Information</h2>
+                  </div>
+
+                  <div class="card__body">
+                    <div class="form-grid">
+                      <div class="form-group form-group--full">
+                        <label for="productName">
+                          Product Name
+                          <span class="required">*</span>
+                        </label>
+
+                        <input
+                          id="productName"
+                          name="productName"
+                          type="text"
+                          placeholder="Premium Jersey Hijab"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="productSlug"> URL Slug </label>
+
+                        <input
+                          id="productSlug"
+                          name="productSlug"
+                          type="text"
+                          placeholder="premium-jersey-hijab"
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="productSku"> SKU </label>
+
+                        <input
+                          id="productSku"
+                          name="productSku"
+                          type="text"
+                          placeholder="FE-000001"
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="productBarcode"> Barcode </label>
+
+                        <input
+                          id="productBarcode"
+                          name="productBarcode"
+                          type="text"
+                          placeholder="Barcode"
+                        />
+                      </div>
+
+                      <div class="form-group form-group--full">
+                        <label for="shortDescription">
+                          Short Description
+                        </label>
+
+                        <textarea
+                          id="shortDescription"
+                          rows="3"
+                          placeholder="Displayed on product cards and listings."
+                        ></textarea>
+                      </div>
+
+                      <div class="form-group form-group--full">
+                        <label for="productDescription">
+                          Full Description
+                        </label>
+
+                        <textarea
+                          id="productDescription"
+                          rows="8"
+                          placeholder="Detailed product description..."
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!--======================================
+                    Media
+                =======================================-->
+
+               <!--======================================
+    Media
+=======================================-->
+
+<section class="card" id="mediaCard">
+
+    <div class="card__header">
+
+        <h2>
+
+            Media
+
+        </h2>
+
+    </div>
+
+    <div class="card__body">
+
+        <!-- Upload Area -->
+
+        <div
+            class="media-upload"
+            id="mediaUpload">
+
+            <input
+                type="file"
+                id="productImages"
+                accept="image/*"
+                multiple
+                hidden>
+
+            <div class="media-upload__content">
+
+                <div class="media-upload__icon">
+
+                    📁
+
+                </div>
+
+                <h3>
+
+                    Drag & Drop Images
+
+                </h3>
+
+                <p>
+
+                    or click below to upload
+
+                </p>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="browseImages">
+
+                    Upload Images
+
+                </button>
+
+                <small>
+
+                    JPG • PNG • WEBP
+
+                    Maximum 20 Images
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Gallery -->
+
+        <div
+            class="media-gallery"
+            id="mediaGallery">
+
+            <div class="media-gallery__empty">
+
+                No images uploaded yet.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+                <!--======================================
+                    Pricing
+                =======================================-->
+
+                <section class="card" id="pricingCard"></section>
+
+                <!--======================================
+                    Inventory
+                =======================================-->
+
+                <section class="card" id="inventoryCard"></section>
+
+                <!--======================================
+                    Variants
+                =======================================-->
+
+                <section class="card" id="variantsCard"></section>
+
+                <!--======================================
+                    SEO
+                =======================================-->
+
+                <section class="card" id="seoCard"></section>
+
+                <!--======================================
+                    Shipping
+                =======================================-->
+
+                <section class="card" id="shippingCard"></section>
+              </div>
+
+              <!--======================================
+                  Right Sidebar
+              ======================================-->
+              <!--======================================
+    Right Sidebar
+=======================================-->
+
+              <aside class="product-sidebar">
+                <!--==================================
+        Publish
+    ==================================-->
+
+                <section class="card" id="publishCard">
+                  <div class="card__header">
+                    <h2>Publish</h2>
+                  </div>
+
+                  <div class="card__body">
+                    <div class="publish-actions">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="publishBtn"
+                      >
+                        Save Product
+                      </button>
+
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="draftBtn"
+                      >
+                        Save as Draft
+                      </button>
+                    </div>
+                  </div>
+                </section>
+
+                <!--==================================
+        Status
+    ==================================-->
+
+                <section class="card" id="statusCard">
+                  <div class="card__header">
+                    <h2>Status</h2>
+                  </div>
+
+                  <div class="card__body">
+                    <div class="form-group">
+                      <label for="productStatus"> Product Status </label>
+
+                      <select id="productStatus">
+                        <option value="Draft">Draft</option>
+
+                        <option value="Active">Active</option>
+
+                        <option value="Archived">Archived</option>
+                      </select>
+                    </div>
+
+                    <label class="checkbox-group">
+                      <input type="checkbox" id="featuredProduct" />
+
+                      <span> Featured Product </span>
+                    </label>
+                  </div>
+                </section>
+
+                <!--==================================
+        Category
+    ==================================-->
+
+                <section class="card" id="categoryCard">
+                  <div class="card__header">
+                    <h2>Category</h2>
+                  </div>
+
+                  <div class="card__body">
+                    <div class="form-group">
+                      <label for="productCategory"> Category </label>
+
+                      <select id="productCategory">
+                        <option value="">Select Category</option>
+                      </select>
+                    </div>
+                  </div>
+                </section>
+
+                <!--==================================
+        Brand
+    ==================================-->
+
+                <section class="card" id="brandCard">
+                  <div class="card__header">
+                    <h2>Brand</h2>
+                  </div>
+
+                  <div class="card__body">
+                    <div class="form-group">
+                      <label for="productBrand"> Brand </label>
+
+                      <select id="productBrand">
+                        <option value="">Select Brand</option>
+                      </select>
+                    </div>
+                  </div>
+                </section>
+
+                <!--==================================
+        Featured Image
+    ==================================-->
+
+                <section class="card" id="featuredImageCard">
+                  <div class="card__header">
+                    <h2>Featured Image</h2>
+                  </div>
+
+                  <div class="card__body">
+                    <div class="featured-image">
+                      <div class="featured-image__preview" id="featuredPreview">
+                        <span class="featured-image__placeholder">
+                          No Image Selected
+                        </span>
+                      </div>
+
+                      <input type="file" id="featuredImage" accept="image/*" />
+                    </div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <!--==========================================
+        Scripts
+    ==========================================-->
+
+    <script type="module" src="js/components/sidebar.js"></script>
+
+    <script type="module" src="js/components/topbar.js"></script>
+
+    <script type="module" src="js/pages/product/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+/*==========================================================
+  Fashion Essentials Admin V1
+  File: grid.css
+  Description: Responsive Grid System
+  Version: 1.0
+==========================================================*/
+
+
+/*==========================================================
+  Base Grid
+==========================================================*/
+
+.grid{
+    display:grid;
+    gap:var(--space-5);
+}
+
+
+/*==========================================================
+  Grid Columns
+==========================================================*/
+
+.grid-1{
+    grid-template-columns:1fr;
+}
+
+.grid-2{
+    grid-template-columns:1fr;
+}
+
+.grid-3{
+    grid-template-columns:1fr;
+}
+
+.grid-4{
+    grid-template-columns:1fr;
+}
+
+.grid-auto{
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+}
+
+
+/*==========================================================
+  Dashboard Stats Grid
+==========================================================*/
+
+.stats-grid{
+    display:grid;
+    gap:var(--space-5);
+    grid-template-columns:1fr;
+}
+
+
+/*==========================================================
+  Cards Grid
+==========================================================*/
+
+.cards-grid{
+    display:grid;
+    gap:var(--space-5);
+    grid-template-columns:1fr;
+}
+
+
+/*==========================================================
+  Product Grid
+==========================================================*/
+
+.products-grid{
+    display:grid;
+    gap:var(--space-5);
+    grid-template-columns:1fr;
+}
+
+
+/*==========================================================
+  Two Column Layout
+==========================================================*/
+
+.layout-2{
+    display:grid;
+    gap:var(--space-6);
+    grid-template-columns:1fr;
+}
+
+
+/*==========================================================
+  Three Column Layout
+==========================================================*/
+
+.layout-3{
+    display:grid;
+    gap:var(--space-6);
+    grid-template-columns:1fr;
+}
+
+
+/*==========================================================
+  Four Column Layout
+==========================================================*/
+
+.layout-4{
+    display:grid;
+    gap:var(--space-6);
+    grid-template-columns:1fr;
+}
+
+
+/*==========================================================
+  Sidebar Layout
+==========================================================*/
+
+.layout-sidebar{
+    display:grid;
+    gap:var(--space-6);
+    grid-template-columns:1fr;
+}
+
+
+/*==========================================================
+  Equal Height Grid Items
+==========================================================*/
+
+.grid > *{
+    height:100%;
+}
+
+
+/*==========================================================
+  Tablet
+==========================================================*/
+
+@media (min-width:768px){
+
+    .grid-2{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .grid-3{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .grid-4{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .stats-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .cards-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .products-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .layout-2{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .layout-3{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .layout-4{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+/*==========================================================
+  Desktop
+==========================================================*/
+
+@media (min-width:1200px){
+
+    .grid-3{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .grid-4{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .stats-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .cards-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .products-grid{
+        grid-template-columns:
+            repeat(auto-fill,minmax(280px,1fr));
+    }
+
+    .layout-4{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .layout-sidebar{
+        grid-template-columns:
+            320px 1fr;
+    }
+
+}
