@@ -15,5 +15,29 @@ export const supabase = {
   async insert(table, value) { ready(); return data(await fetch(`${SUPABASE_CONFIG.url}/rest/v1/${table}`, { method: "POST", headers: headers({ "Content-Type": "application/json", Prefer: "return=representation" }), body: JSON.stringify(value) })); },
   async update(table, id, value) { ready(); return data(await fetch(`${SUPABASE_CONFIG.url}/rest/v1/${table}?id=eq.${encodeURIComponent(id)}`, { method: "PATCH", headers: headers({ "Content-Type": "application/json", Prefer: "return=representation" }), body: JSON.stringify(value) })); },
   async remove(table, id) { ready(); return data(await fetch(`${SUPABASE_CONFIG.url}/rest/v1/${table}?id=eq.${encodeURIComponent(id)}`, { method: "DELETE", headers: headers({ Prefer: "return=representation" }) })); },
-  async upload(file) { ready(); if (file.size > 5 * 1024 * 1024) throw new Error(`${file.name} is larger than 5 MB.`); const path = `${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "-")}`; const result = await data(await fetch(`${SUPABASE_CONFIG.url}/storage/v1/object/product-images/${path}`, { method: "POST", headers: headers({ "Content-Type": file.type, "x-upsert": "false" }), body: file })); return `${SUPABASE_CONFIG.url}/storage/v1/object/public/product-images/${result.Key || path}`; }
-};
+  async upload(file) {
+  ready();
+
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error(`${file.name} is larger than 5 MB.`);
+  }
+
+  const path =
+    `${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "-")}`;
+
+  await data(
+    await fetch(
+      `${SUPABASE_CONFIG.url}/storage/v1/object/product-images/${path}`,
+      {
+        method: "POST",
+        headers: headers({
+          "Content-Type": file.type,
+          "x-upsert": "false"
+        }),
+        body: file
+      }
+    )
+  );
+
+  return `${SUPABASE_CONFIG.url}/storage/v1/object/public/product-images/${path}`;
+}};
