@@ -50,6 +50,12 @@ function showError(message) {
   banner.textContent = message;
 }
 
+function generateOrderNumber() {
+  const stamp = Date.now().toString(36).toUpperCase();
+  const random = Math.random().toString(36).slice(2, 5).toUpperCase();
+  return `FE-${stamp}${random}`;
+}
+
 async function placeOrder(formData, cart, subtotal) {
   const items = cart.map((item) => ({
     id: item.id,
@@ -58,7 +64,10 @@ async function placeOrder(formData, cart, subtotal) {
     quantity: item.quantity,
   }));
 
+  const orderNumber = generateOrderNumber();
+
   const order = {
+    order_number: orderNumber,
     customer_name: formData.get("name"),
     customer_email: formData.get("email"),
     customer_phone: formData.get("phone"),
@@ -73,13 +82,18 @@ async function placeOrder(formData, cart, subtotal) {
     status: "Pending",
   };
 
+  // Guests can create an order but are not allowed to read orders back
+  // (only a logged-in admin can), so we don't ask Supabase to return the
+  // inserted row — asking for it back would trip the SELECT policy and
+  // fail the whole insert. We already know the order number because we
+  // generated it above.
   const response = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       apikey: SUPABASE_ANON_KEY,
       Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      Prefer: "return=representation",
+      Prefer: "return=minimal",
     },
     body: JSON.stringify(order),
   });
@@ -89,8 +103,7 @@ async function placeOrder(formData, cart, subtotal) {
     throw new Error(`Order could not be placed (${response.status}): ${message}`);
   }
 
-  const [saved] = await response.json();
-  return saved;
+  return { order_number: orderNumber };
 }
 
 checkoutForm.addEventListener("submit", async (event) => {
