@@ -26,15 +26,17 @@ function renderProducts(products) {
   }
 
   grid.innerHTML = activeProducts
-    .map(
-      (product) => `
+    .map((product) => {
+      const pricing = FashionProducts.getPricing(product);
+
+      return `
         <article class="product-card">
           <a href="product.html?id=${product.id}" class="product-link">
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
           </a>
 
-          <p class="price">${product.price}</p>
+          ${FashionProducts.priceMarkup(product)}
           <p class="product-description">${product.description || ""}</p>
 
           <div class="colors">
@@ -52,13 +54,13 @@ function renderProducts(products) {
             class="add-cart"
             data-id="${product.id}"
             data-name="${product.name}"
-            data-price="${product.price}"
+            data-price="${pricing.effective}"
           >
             Add to Cart
           </button>
         </article>
-      `
-    )
+      `;
+    })
     .join("");
 }
 

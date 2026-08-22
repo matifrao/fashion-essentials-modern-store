@@ -45,6 +45,8 @@ async function loadProduct() {
       .map((name) => allProducts.find((item) => item.name === name || item.id === name))
       .filter(Boolean);
 
+    const pricing = FashionProducts.getPricing(product);
+
     detail.innerHTML = `
       <section class="product-detail">
         <div class="product-gallery">
@@ -56,7 +58,7 @@ async function loadProduct() {
         <div class="product-info">
           <span>${product.category || "Fashion Essentials"}</span>
           <h1>${product.name}</h1>
-          <p class="price">${product.price}</p>
+          ${FashionProducts.priceMarkup(product)}
           <p>${product.description || ""}</p>
 
           <div class="product-options">
@@ -75,7 +77,7 @@ async function loadProduct() {
             class="add-cart"
             data-id="${product.id}"
             data-name="${product.name}"
-            data-price="${product.price}"
+            data-price="${pricing.effective}"
           >
             Add to Cart
           </button>
@@ -93,7 +95,7 @@ async function loadProduct() {
                     <img src="${item.image}" alt="${item.name}">
                     <h3>${item.name}</h3>
                   </a>
-                  <p class="price">${item.price}</p>
+                  ${FashionProducts.priceMarkup(item)}
                 </article>
               `
             )

@@ -41,12 +41,53 @@ class Sidebar {
             this.container.innerHTML =
                 await response.text();
 
+            this.fixLinks();
+
         } catch (error) {
             console.error(
                 "Sidebar load error:",
                 error
             );
         }
+    }
+
+    fixLinks() {
+        // The sidebar markup is written with paths like "../orders.html",
+        // which only resolve correctly if every admin page lives one
+        // folder below adminv1/. Some pages (products, categories) live
+        // in nested subfolders, so those relative paths break depending
+        // on which page the sidebar is loaded into. Rewrite every link
+        // to resolve against the adminv1 root instead, with explicit
+        // overrides for pages that live in a subfolder.
+        const adminRoot =
+            new URL("../../", import.meta.url);
+
+        const overrides = {
+            "products.html": "products/products.html",
+            "categories.html": "admin/categories.html",
+        };
+
+        this.container
+            .querySelectorAll("a[href]")
+            .forEach((link) => {
+                const original =
+                    link.getAttribute("href");
+
+                if (!original || !original.startsWith("../")) {
+                    return;
+                }
+
+                const relative =
+                    original.replace(/^\.\.\//, "");
+
+                const mapped =
+                    overrides[relative] || relative;
+
+                link.setAttribute(
+                    "href",
+                    new URL(mapped, adminRoot).href
+                );
+            });
     }
 
     setActivePage() {

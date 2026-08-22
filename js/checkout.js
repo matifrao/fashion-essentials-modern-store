@@ -1,3 +1,6 @@
+const SUPABASE_URL = "https://omnlwbmahntspldbzarj.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_ET-KSHRDbelW54DQ_ql-ag_7zAUX5gk";
+
 const checkoutItems = document.getElementById("checkout-items");
 const checkoutSubtotal = document.getElementById("checkout-subtotal");
 const checkoutTotal = document.getElementById("checkout-total");
@@ -33,21 +36,100 @@ function renderCheckout() {
   checkoutTotal.textContent = FashionCart.formatPrice(subtotal);
 }
 
-checkoutForm.addEventListener("submit", (event) => {
+function showError(message) {
+  let banner = document.getElementById("checkout-error");
+
+  if (!banner) {
+    banner = document.createElement("p");
+    banner.id = "checkout-error";
+    banner.style.color = "#c0392b";
+    banner.style.marginTop = "12px";
+    checkoutForm.prepend(banner);
+  }
+
+  banner.textContent = message;
+}
+
+async function placeOrder(formData, cart, subtotal) {
+  const items = cart.map((item) => ({
+    id: item.id,
+    name: item.name,
+    price: FashionCart.parsePrice(item.price),
+    quantity: item.quantity,
+  }));
+
+  const order = {
+    customer_name: formData.get("name"),
+    customer_email: formData.get("email"),
+    customer_phone: formData.get("phone"),
+    shipping_address: formData.get("address"),
+    city: formData.get("city"),
+    postal_code: formData.get("postal"),
+    payment_method: formData.get("payment"),
+    notes: formData.get("notes") || "",
+    items,
+    subtotal,
+    total: subtotal,
+    status: "Pending",
+  };
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify(order),
+  });
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(`Order could not be placed (${response.status}): ${message}`);
+  }
+
+  const [saved] = await response.json();
+  return saved;
+}
+
+checkoutForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  FashionCart.clearCart();
 
-  checkoutForm.innerHTML = `
-    <section class="checkout-panel order-complete">
-      <h2>Order placed</h2>
-      <p>Thank you. Your order has been received and Fashion Essentials will contact you to confirm delivery.</p>
-      <a class="cart-link" href="shop.html">Continue Shopping</a>
-    </section>
-  `;
+  const submitButton = checkoutForm.querySelector(".place-order");
+  const cart = FashionCart.getCart();
+  const subtotal = FashionCart.getSubtotal();
+  const formData = new FormData(checkoutForm);
 
-  checkoutItems.innerHTML = "";
-  checkoutSubtotal.textContent = FashionCart.formatPrice(0);
-  checkoutTotal.textContent = FashionCart.formatPrice(0);
+  submitButton.disabled = true;
+  submitButton.textContent = "Placing order...";
+
+  try {
+    const saved = await placeOrder(formData, cart, subtotal);
+
+    FashionCart.clearCart();
+
+    checkoutForm.innerHTML = `
+      <section class="checkout-panel order-complete">
+        <h2>Order placed</h2>
+        <p>Thank you. Your order ${
+          saved?.order_number ? `<strong>#${saved.order_number}</strong> ` : ""
+        }has been received and Fashion Essentials will contact you to confirm delivery.</p>
+        <a class="cart-link" href="shop.html">Continue Shopping</a>
+      </section>
+    `;
+
+    checkoutItems.innerHTML = "";
+    checkoutSubtotal.textContent = FashionCart.formatPrice(0);
+    checkoutTotal.textContent = FashionCart.formatPrice(0);
+  } catch (error) {
+    console.error(error);
+    showError(
+      "We could not place your order. Please check your connection and try again."
+    );
+    submitButton.disabled = false;
+    submitButton.textContent = "Place Order";
+  }
 });
 
 renderCheckout();

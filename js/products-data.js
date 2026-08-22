@@ -176,6 +176,56 @@ const FashionProducts = (() => {
   }
 
 
+  function getPricing(product) {
+
+    const regular = Number(product.price) || 0;
+
+    const sale =
+      product.salePrice !== undefined &&
+      product.salePrice !== null &&
+      product.salePrice !== "" &&
+      Number(product.salePrice) > 0 &&
+      Number(product.salePrice) < regular
+        ? Number(product.salePrice)
+        : null;
+
+    return {
+      regular,
+      sale,
+      effective: sale !== null ? sale : regular,
+      onSale: sale !== null,
+      percentOff:
+        sale !== null
+          ? Math.round(((regular - sale) / regular) * 100)
+          : 0,
+    };
+  }
+
+
+  function priceMarkup(product) {
+
+    const pricing = getPricing(product);
+
+    if (!pricing.onSale) {
+      return `<p class="price">PKR ${pricing.regular.toLocaleString(
+        "en-PK"
+      )}</p>`;
+    }
+
+    return `
+      <p class="price-row">
+        <span class="price">PKR ${pricing.effective.toLocaleString(
+          "en-PK"
+        )}</span>
+        <span class="price-compare">PKR ${pricing.regular.toLocaleString(
+          "en-PK"
+        )}</span>
+        <span class="price-badge">${pricing.percentOff}% OFF</span>
+      </p>
+    `;
+  }
+
+
   return {
 
     slugify,
@@ -185,6 +235,10 @@ const FashionProducts = (() => {
     getProducts,
 
     getProduct,
+
+    getPricing,
+
+    priceMarkup,
 
   };
 

@@ -86,6 +86,35 @@ CARD
   color: var(--fashion-gold);
 }
 
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.price-row .price {
+  margin: 0;
+}
+
+.price-compare {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted, #888);
+  text-decoration: line-through;
+}
+
+.price-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #c0392b;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
 /* ================================
 COLORS
 ================================ */
