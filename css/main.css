@@ -1,36 +1,43 @@
 /* ==========================================
    GLOBAL ENTRY POINT
    (ONLY THIS FILE IS LINKED IN HTML)
+
+   NOTE ON CACHING: each @import below is fetched and cached by the
+   browser as its own file. When you edit any imported file (e.g.
+   pages/product.css), bump the "?v=" number on THAT LINE below so
+   visitors' browsers are forced to fetch the new version instead of
+   an old cached copy. Bumping main.css's own link tag alone is not
+   enough, since @import'd files have separate cache entries.
 ========================================== */
 
 
 /* ---------- BASE ---------- */
 
-@import url("./base/root.css");
+@import url("./base/root.css?v=2");
 
 
 /* ---------- LAYOUT ---------- */
 
-@import url("./layout/navbar.css");
-@import url("./layout/hero.css");
-@import url("./layout/grid.css");
-@import url("./layout/container.css");
-@import url("./layout/footer.css");
+@import url("./layout/navbar.css?v=2");
+@import url("./layout/hero.css?v=2");
+@import url("./layout/grid.css?v=2");
+@import url("./layout/container.css?v=2");
+@import url("./layout/footer.css?v=2");
 
 
 /* ---------- COMPONENTS ---------- */
 
-@import url("./components/buttons.css");
-@import url("./components/cards.css");
-@import url("./components/inputs.css");
+@import url("./components/buttons.css?v=2");
+@import url("./components/cards.css?v=2");
+@import url("./components/inputs.css?v=2");
 
 
 /* ---------- PAGES ---------- */
 
-@import url("./pages/home.css");
-@import url("./pages/shop.css");
-@import url("./pages/product.css");
-@import url("./pages/cart.css");
-@import url("./pages/checkout.css");
-@import url("./pages/about.css");
-@import url("./pages/contact.css");
+@import url("./pages/home.css?v=2");
+@import url("./pages/shop.css?v=2");
+@import url("./pages/product.css?v=3");
+@import url("./pages/cart.css?v=2");
+@import url("./pages/checkout.css?v=2");
+@import url("./pages/about.css?v=2");
+@import url("./pages/contact.css?v=2");
