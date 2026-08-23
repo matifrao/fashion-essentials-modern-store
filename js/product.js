@@ -2,29 +2,86 @@ const detail = document.getElementById("product-detail");
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 
-function colorMarkup(colors) {
-  const colorMap = {
-    cream: "#f6f0e7",
-    beige: "#d8c3a5",
-    navy: "#0b1f33",
-    olive: "#6b705c",
-    burgundy: "#6f1d1b",
-    camel: "#c19a6b",
-    grey: "#8d99ae",
-    gray: "#8d99ae",
-    pink: "#f8c8dc",
-    mint: "#95d5b2",
-    lavender: "#b8a1e3",
-  };
+const legacyColorMap = {
+  cream: "#f6f0e7",
+  beige: "#d8c3a5",
+  navy: "#0b1f33",
+  olive: "#6b705c",
+  burgundy: "#6f1d1b",
+  camel: "#c19a6b",
+  grey: "#8d99ae",
+  gray: "#8d99ae",
+  pink: "#f8c8dc",
+  mint: "#95d5b2",
+  lavender: "#b8a1e3",
+};
 
+function resolveColor(color) {
+  // Admin panel saves colors as { name, hex, image }. Older products may
+  // still have plain color-name strings, so support both formats.
+  if (color && typeof color === "object") {
+    return {
+      name: color.name || "",
+      hex: color.hex || legacyColorMap[String(color.name).toLowerCase()] || "#cccccc",
+      image: color.image || "",
+    };
+  }
+
+  const name = String(color || "");
+  return {
+    name,
+    hex: legacyColorMap[name.toLowerCase()] || "#cccccc",
+    image: "",
+  };
+}
+
+function colorMarkup(colors) {
   return (colors || [])
-    .map(
-      (color) =>
-        `<span class="color" title="${color}" style="background:${
-          colorMap[String(color).toLowerCase()] || color
-        }"></span>`
-    )
+    .map((color, index) => {
+      const c = resolveColor(color);
+
+      return `<button
+        type="button"
+        class="color-swatch${index === 0 ? " active" : ""}"
+        data-index="${index}"
+        data-name="${c.name}"
+        data-image="${c.image}"
+        title="${c.name}"
+        style="background:${c.hex}"
+        aria-label="Select color ${c.name}"
+      ></button>`;
+    })
     .join("");
+}
+
+function bindColorSwatches(product) {
+  const swatches = Array.from(detail.querySelectorAll(".colors .color-swatch"));
+  if (!swatches.length) return;
+
+  const mainImage = document.getElementById("mainProductImage");
+  const addCartButton = detail.querySelector(".add-cart");
+
+  function selectSwatch(swatch) {
+    swatches.forEach((s) => s.classList.remove("active"));
+    swatch.classList.add("active");
+
+    if (addCartButton) {
+      addCartButton.dataset.color = swatch.dataset.name;
+    }
+
+    if (mainImage && swatch.dataset.image) {
+      mainImage.src = swatch.dataset.image;
+    }
+  }
+
+  swatches.forEach((swatch) => {
+    swatch.addEventListener("click", () => selectSwatch(swatch));
+  });
+
+  // Default: first color pre-selected, matching the active swatch on load
+  if (addCartButton && (product.colors || []).length) {
+    addCartButton.dataset.color = resolveColor(product.colors[0]).name;
+  }
 }
 
 function notFound() {
@@ -51,7 +108,10 @@ async function loadProduct() {
       <section class="product-detail">
         <div class="product-gallery">
           ${(product.images || [product.image])
-            .map((image) => `<img src="${image}" alt="${product.name}">`)
+            .map(
+              (image, index) =>
+                `<img${index === 0 ? ' id="mainProductImage"' : ""} src="${image}" alt="${product.name}">`
+            )
             .join("")}
         </div>
 
@@ -103,6 +163,8 @@ async function loadProduct() {
         </div>
       </section>
     `;
+
+    bindColorSwatches(product);
   } catch (error) {
     notFound();
   }

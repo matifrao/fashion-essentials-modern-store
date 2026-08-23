@@ -14,7 +14,17 @@ const colorMap = {
 };
 
 function swatchColor(color) {
-  return colorMap[String(color).toLowerCase()] || color;
+  // Admin panel saves colors as { name, hex, image }. Older products may
+  // still have plain color-name strings, so support both.
+  if (color && typeof color === "object") {
+    return color.hex || colorMap[String(color.name).toLowerCase()] || "#cccccc";
+  }
+
+  return colorMap[String(color).toLowerCase()] || "#cccccc";
+}
+
+function colorName(color) {
+  return color && typeof color === "object" ? color.name || "" : String(color || "");
 }
 
 function renderProducts(products) {
@@ -43,7 +53,7 @@ function renderProducts(products) {
             ${(product.colors || [])
               .map(
                 (color) =>
-                  `<span class="color" title="${color}" style="background:${swatchColor(
+                  `<span class="color" title="${colorName(color)}" style="background:${swatchColor(
                     color
                   )}"></span>`
               )
