@@ -79,8 +79,16 @@ function bindColorSwatches(product) {
   });
 
   // Default: first color pre-selected, matching the active swatch on load
-  if (addCartButton && (product.colors || []).length) {
-    addCartButton.dataset.color = resolveColor(product.colors[0]).name;
+  if ((product.colors || []).length) {
+    const firstColor = resolveColor(product.colors[0]);
+
+    if (addCartButton) {
+      addCartButton.dataset.color = firstColor.name;
+    }
+
+    if (mainImage && firstColor.image) {
+      mainImage.src = firstColor.image;
+    }
   }
 }
 
@@ -107,12 +115,7 @@ async function loadProduct() {
     detail.innerHTML = `
       <section class="product-detail">
         <div class="product-gallery">
-          ${(product.images || [product.image])
-            .map(
-              (image, index) =>
-                `<img${index === 0 ? ' id="mainProductImage"' : ""} src="${image}" alt="${product.name}">`
-            )
-            .join("")}
+          <img id="mainProductImage" src="${product.image}" alt="${product.name}">
         </div>
 
         <div class="product-info">
