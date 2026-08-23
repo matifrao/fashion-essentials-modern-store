@@ -27,6 +27,10 @@ function colorName(color) {
   return color && typeof color === "object" ? color.name || "" : String(color || "");
 }
 
+function colorImage(color) {
+  return color && typeof color === "object" ? color.image || "" : "";
+}
+
 function renderProducts(products) {
   const activeProducts = products.filter((product) => product.status !== "Draft");
 
@@ -42,7 +46,7 @@ function renderProducts(products) {
       return `
         <article class="product-card">
           <a href="product.html?id=${product.id}" class="product-link">
-            <img src="${product.image}" alt="${product.name}">
+            <img class="product-card-image" src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
           </a>
 
@@ -52,10 +56,16 @@ function renderProducts(products) {
           <div class="colors">
             ${(product.colors || [])
               .map(
-                (color) =>
-                  `<span class="color" title="${colorName(color)}" style="background:${swatchColor(
-                    color
-                  )}"></span>`
+                (color, index) =>
+                  `<button
+                    type="button"
+                    class="color-swatch${index === 0 ? " active" : ""}"
+                    data-name="${colorName(color)}"
+                    data-image="${colorImage(color)}"
+                    title="${colorName(color)}"
+                    style="background:${swatchColor(color)}"
+                    aria-label="Preview color ${colorName(color)}"
+                  ></button>`
               )
               .join("")}
           </div>
@@ -85,5 +95,22 @@ async function loadProducts() {
     `;
   }
 }
+
+grid.addEventListener("click", (event) => {
+  const swatch = event.target.closest(".color-swatch");
+  if (!swatch) return;
+
+  const card = swatch.closest(".product-card");
+  if (!card) return;
+
+  card
+    .querySelectorAll(".color-swatch")
+    .forEach((s) => s.classList.toggle("active", s === swatch));
+
+  const image = card.querySelector(".product-card-image");
+  if (image && swatch.dataset.image) {
+    image.src = swatch.dataset.image;
+  }
+});
 
 loadProducts();
