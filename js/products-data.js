@@ -97,11 +97,18 @@ const FashionProducts = (() => {
           ? data.sizes
           : [],
 
+      // Admin panel's "Related products" picker saves an array of product
+      // IDs under relatedProductIds. Fall back to that if "related" (a
+      // separate, never-populated field) isn't set.
       related:
         Array.isArray(product.related)
           ? product.related
           : Array.isArray(data.related)
           ? data.related
+          : Array.isArray(product.relatedProductIds)
+          ? product.relatedProductIds
+          : Array.isArray(data.relatedProductIds)
+          ? data.relatedProductIds
           : [],
 
       description:
