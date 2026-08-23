@@ -53,6 +53,31 @@
   font-weight: 700;
 }
 
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.08);
+}
+
+.color-swatch.active {
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--fashion-black);
+}
+
 .product-info .add-cart {
   min-height: 48px;
   padding: 0 var(--space-5);
