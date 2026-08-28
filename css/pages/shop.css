@@ -127,10 +127,14 @@ COLORS
   gap: 10px;
 }
 
-.product-card .color-swatch {
+.color {
   width: 22px;
 
   height: 22px;
+
+  border-radius: 50%;
+
+  border: 1px solid #ddd;
 }
 
 /* 12 COLORS */

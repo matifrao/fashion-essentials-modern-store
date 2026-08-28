@@ -29,6 +29,13 @@ function renderCart() {
         <article class="cart-item">
           <div>
             <h2>${item.name}</h2>
+            ${
+              item.color || item.size
+                ? `<p class="cart-item-variant">${[item.color, item.size]
+                    .filter(Boolean)
+                    .join(" · ")}</p>`
+                : ""
+            }
             <p>${item.price}</p>
           </div>
 
