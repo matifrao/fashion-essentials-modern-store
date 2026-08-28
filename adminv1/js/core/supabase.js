@@ -8,7 +8,27 @@ async function data(response) { const body = await response.json().catch(() => n
 
 export const supabase = {
   configured,
-  async login(email, password) { ready(); const result = await data(await fetch(`${SUPABASE_CONFIG.url}/auth/v1/token?grant_type=password`, { method: "POST", headers: headers({ "Content-Type": "application/json" }), body: JSON.stringify({ email, password }) })); storage.setToken(result.access_token); storage.setUser(result.user); return result; },
+  async login(email, password) {
+    ready();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    try {
+      const result = await data(await fetch(`${SUPABASE_CONFIG.url}/auth/v1/token?grant_type=password`, {
+        method: "POST",
+        headers: { apikey: SUPABASE_CONFIG.anonKey, "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        signal: controller.signal
+      }));
+      storage.setToken(result.access_token);
+      storage.setUser(result.user);
+      return result;
+    } catch (error) {
+      if (error.name === "AbortError") throw new Error("Supabase did not respond. Check that the Supabase project is active and that its URL/key are correct.");
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
+  },
   async logout() { if (configured() && storage.getToken()) await fetch(`${SUPABASE_CONFIG.url}/auth/v1/logout`, { method: "POST", headers: headers() }); storage.logout(); },
   async user() { ready(); return data(await fetch(`${SUPABASE_CONFIG.url}/auth/v1/user`, { headers: headers() })); },
   async select(table, query = "") { ready(); return data(await fetch(`${SUPABASE_CONFIG.url}/rest/v1/${table}?${query}`, { headers: headers() })); },
