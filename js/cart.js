@@ -17,8 +17,6 @@ const FashionCart = (() => {
       name: item.name,
       price: item.price,
       quantity: Number(item.quantity) || 1,
-      color: item.color || "",
-      size: item.size || "",
     }));
   }
 
@@ -29,22 +27,17 @@ const FashionCart = (() => {
 
   function addItem(product) {
     const cart = getCart();
-    const color = product.color || "";
-    const size = product.size || "";
-    const baseId = product.id || product.name;
-    const variantId = [baseId, color, size].filter(Boolean).join("__");
-    const existingItem = cart.find((item) => item.id === variantId);
+    const productId = product.id || product.name;
+    const existingItem = cart.find((item) => item.id === productId);
 
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
       cart.push({
-        id: variantId,
+        id: productId,
         name: product.name,
         price: product.price,
         quantity: 1,
-        color,
-        size,
       });
     }
 
@@ -111,8 +104,6 @@ document.addEventListener("click", (event) => {
     id: button.dataset.id || button.dataset.name,
     name: button.dataset.name,
     price: button.dataset.price,
-    color: button.dataset.color || "",
-    size: button.dataset.size || "",
   });
 
   button.textContent = "Added";

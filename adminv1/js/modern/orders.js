@@ -19,8 +19,7 @@ function itemsSummary(items) {
   if (!Array.isArray(items) || !items.length) return "No items";
   const count = items.reduce((total, item) => total + Number(item.quantity || 0), 0);
   const first = items[0].name || "";
-  const variant = [items[0].color, items[0].size].filter(Boolean).join("/");
-  return `${clean(first)}${variant ? ` (${clean(variant)})` : ""}${items.length > 1 ? ` +${items.length - 1} more` : ""} · ${count} item${count === 1 ? "" : "s"}`;
+  return `${clean(first)}${items.length > 1 ? ` +${items.length - 1} more` : ""} · ${count} item${count === 1 ? "" : "s"}`;
 }
 
 function detailMarkup(order) {
@@ -42,7 +41,7 @@ function detailMarkup(order) {
       <div style="grid-column:1/-1">
         <h4>Items</h4>
         <div class="order-items-list">
-          ${items.map(item => `<div><span>${clean(item.name)}${[item.color, item.size].filter(Boolean).length ? ` <em style="font-style:normal;color:#687385">(${clean([item.color, item.size].filter(Boolean).join(" / "))})</em>` : ""} × ${Number(item.quantity || 0)}</span><span>${money(Number(item.price || 0) * Number(item.quantity || 0))}</span></div>`).join("") || "<div>No items recorded.</div>"}
+          ${items.map(item => `<div><span>${clean(item.name)} × ${Number(item.quantity || 0)}</span><span>${money(Number(item.price || 0) * Number(item.quantity || 0))}</span></div>`).join("") || "<div>No items recorded.</div>"}
         </div>
       </div>
       ${order.notes ? `<div style="grid-column:1/-1"><h4>Notes</h4><div>${clean(order.notes)}</div></div>` : ""}

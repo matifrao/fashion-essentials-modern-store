@@ -20,13 +20,6 @@ function renderCheckout() {
         <div class="checkout-item">
           <div>
             <strong>${item.name}</strong>
-            ${
-              item.color || item.size
-                ? `<span class="checkout-item-variant">${[item.color, item.size]
-                    .filter(Boolean)
-                    .join(" · ")}</span>`
-                : ""
-            }
             <span>Qty ${item.quantity}</span>
           </div>
           <span>${FashionCart.formatPrice(
@@ -69,8 +62,6 @@ async function placeOrder(formData, cart, subtotal) {
     name: item.name,
     price: FashionCart.parsePrice(item.price),
     quantity: item.quantity,
-    color: item.color || "",
-    size: item.size || "",
   }));
 
   const orderNumber = generateOrderNumber();

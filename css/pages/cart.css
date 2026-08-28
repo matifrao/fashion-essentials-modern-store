@@ -48,13 +48,6 @@
   font-size: 1.25rem;
 }
 
-.cart-item-variant {
-  font-size: 0.85rem;
-  color: #687385;
-  text-transform: capitalize;
-  margin: 2px 0 0;
-}
-
 .cart-item strong {
   color: var(--fashion-black);
 }

@@ -1,5 +1,5 @@
 const grid = document.getElementById("product-grid");
-const fallbackColorHex = {
+const colorMap = {
   cream: "#f6f0e7",
   beige: "#d8c3a5",
   navy: "#0b1f33",
@@ -13,17 +13,22 @@ const fallbackColorHex = {
   lavender: "#b8a1e3",
 };
 
-// Colors are saved by the admin as objects: { name, hex, image }.
-// This also supports plain strings in case any older product data exists.
-function colorName(color) {
-  return typeof color === "string" ? color : color?.name || "";
+function swatchColor(color) {
+  // Admin panel saves colors as { name, hex, image }. Older products may
+  // still have plain color-name strings, so support both.
+  if (color && typeof color === "object") {
+    return color.hex || colorMap[String(color.name).toLowerCase()] || "#cccccc";
+  }
+
+  return colorMap[String(color).toLowerCase()] || "#cccccc";
 }
 
-function swatchColor(color) {
-  if (typeof color === "string") {
-    return fallbackColorHex[color.toLowerCase()] || color;
-  }
-  return color?.hex || fallbackColorHex[(color?.name || "").toLowerCase()] || "#ccc";
+function colorName(color) {
+  return color && typeof color === "object" ? color.name || "" : String(color || "");
+}
+
+function colorImage(color) {
+  return color && typeof color === "object" ? color.image || "" : "";
 }
 
 function renderProducts(products) {
@@ -37,12 +42,11 @@ function renderProducts(products) {
   grid.innerHTML = activeProducts
     .map((product) => {
       const pricing = FashionProducts.getPricing(product);
-      const firstColor = (product.colors || [])[0];
 
       return `
         <article class="product-card">
           <a href="product.html?id=${product.id}" class="product-link">
-            <img src="${product.image}" alt="${product.name}">
+            <img class="product-card-image" src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
           </a>
 
@@ -52,10 +56,16 @@ function renderProducts(products) {
           <div class="colors">
             ${(product.colors || [])
               .map(
-                (color) =>
-                  `<span class="color" title="${colorName(color)}" style="background:${swatchColor(
-                    color
-                  )}"></span>`
+                (color, index) =>
+                  `<button
+                    type="button"
+                    class="color-swatch${index === 0 ? " active" : ""}"
+                    data-name="${colorName(color)}"
+                    data-image="${colorImage(color)}"
+                    title="${colorName(color)}"
+                    style="background:${swatchColor(color)}"
+                    aria-label="Preview color ${colorName(color)}"
+                  ></button>`
               )
               .join("")}
           </div>
@@ -65,7 +75,6 @@ function renderProducts(products) {
             data-id="${product.id}"
             data-name="${product.name}"
             data-price="${pricing.effective}"
-            data-color="${colorName(firstColor)}"
           >
             Add to Cart
           </button>
@@ -86,5 +95,22 @@ async function loadProducts() {
     `;
   }
 }
+
+grid.addEventListener("click", (event) => {
+  const swatch = event.target.closest(".color-swatch");
+  if (!swatch) return;
+
+  const card = swatch.closest(".product-card");
+  if (!card) return;
+
+  card
+    .querySelectorAll(".color-swatch")
+    .forEach((s) => s.classList.toggle("active", s === swatch));
+
+  const image = card.querySelector(".product-card-image");
+  if (image && swatch.dataset.image) {
+    image.src = swatch.dataset.image;
+  }
+});
 
 loadProducts();

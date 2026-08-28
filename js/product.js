@@ -2,7 +2,7 @@ const detail = document.getElementById("product-detail");
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 
-const fallbackColorHex = {
+const legacyColorMap = {
   cream: "#f6f0e7",
   beige: "#d8c3a5",
   navy: "#0b1f33",
@@ -16,46 +16,80 @@ const fallbackColorHex = {
   lavender: "#b8a1e3",
 };
 
-// Colors are saved by the admin as objects: { name, hex, image }.
-// This also supports plain strings in case any older product data exists.
-function colorName(color) {
-  return typeof color === "string" ? color : color?.name || "";
-}
-
-function colorSwatchHex(color) {
-  if (typeof color === "string") {
-    return fallbackColorHex[color.toLowerCase()] || color;
+function resolveColor(color) {
+  // Admin panel saves colors as { name, hex, image }. Older products may
+  // still have plain color-name strings, so support both formats.
+  if (color && typeof color === "object") {
+    return {
+      name: color.name || "",
+      hex: color.hex || legacyColorMap[String(color.name).toLowerCase()] || "#cccccc",
+      image: color.image || "",
+    };
   }
-  return color?.hex || fallbackColorHex[(color?.name || "").toLowerCase()] || "#ccc";
-}
 
-function colorImage(color) {
-  return typeof color === "object" ? color?.image || "" : "";
+  const name = String(color || "");
+  return {
+    name,
+    hex: legacyColorMap[name.toLowerCase()] || "#cccccc",
+    image: "",
+  };
 }
 
 function colorMarkup(colors) {
   return (colors || [])
     .map((color, index) => {
-      const name = colorName(color);
+      const c = resolveColor(color);
 
-      return `<span
-        class="color${index === 0 ? " selected" : ""}"
-        data-color="${name}"
-        data-image="${colorImage(color)}"
-        title="${name}"
-        style="background:${colorSwatchHex(color)}"
-      ></span>`;
+      return `<button
+        type="button"
+        class="color-swatch${index === 0 ? " active" : ""}"
+        data-index="${index}"
+        data-name="${c.name}"
+        data-image="${c.image}"
+        title="${c.name}"
+        style="background:${c.hex}"
+        aria-label="Select color ${c.name}"
+      ></button>`;
     })
     .join("");
 }
 
-function sizeMarkup(sizes) {
-  return (sizes || [])
-    .map(
-      (size, index) =>
-        `<span class="size${index === 0 ? " selected" : ""}" data-size="${size}">${size}</span>`
-    )
-    .join("");
+function bindColorSwatches(product) {
+  const swatches = Array.from(detail.querySelectorAll(".colors .color-swatch"));
+  if (!swatches.length) return;
+
+  const mainImage = document.getElementById("mainProductImage");
+  const addCartButton = detail.querySelector(".add-cart");
+
+  function selectSwatch(swatch) {
+    swatches.forEach((s) => s.classList.remove("active"));
+    swatch.classList.add("active");
+
+    if (addCartButton) {
+      addCartButton.dataset.color = swatch.dataset.name;
+    }
+
+    if (mainImage && swatch.dataset.image) {
+      mainImage.src = swatch.dataset.image;
+    }
+  }
+
+  swatches.forEach((swatch) => {
+    swatch.addEventListener("click", () => selectSwatch(swatch));
+  });
+
+  // Default: first color pre-selected, matching the active swatch on load
+  if ((product.colors || []).length) {
+    const firstColor = resolveColor(product.colors[0]);
+
+    if (addCartButton) {
+      addCartButton.dataset.color = firstColor.name;
+    }
+
+    if (mainImage && firstColor.image) {
+      mainImage.src = firstColor.image;
+    }
+  }
 }
 
 function notFound() {
@@ -77,13 +111,11 @@ async function loadProduct() {
       .filter(Boolean);
 
     const pricing = FashionProducts.getPricing(product);
-    const firstColor = (product.colors || [])[0];
-    const mainImage = colorImage(firstColor) || product.image || (product.images || [])[0] || "";
 
     detail.innerHTML = `
       <section class="product-detail">
         <div class="product-gallery">
-          <img id="main-product-image" src="${mainImage}" alt="${product.name}">
+          <img id="mainProductImage" src="${product.image}" alt="${product.name}">
         </div>
 
         <div class="product-info">
@@ -94,22 +126,21 @@ async function loadProduct() {
 
           <div class="product-options">
             <strong>Colors</strong>
-            <div class="colors" id="color-options">${colorMarkup(product.colors)}</div>
+            <div class="colors">${colorMarkup(product.colors)}</div>
           </div>
 
           <div class="product-options">
             <strong>Sizes</strong>
-            <div class="size-list" id="size-options">${sizeMarkup(product.sizes)}</div>
+            <div class="size-list">
+              ${(product.sizes || []).map((size) => `<span>${size}</span>`).join("")}
+            </div>
           </div>
 
           <button
             class="add-cart"
-            id="add-to-cart"
             data-id="${product.id}"
             data-name="${product.name}"
             data-price="${pricing.effective}"
-            data-color="${colorName(firstColor)}"
-            data-size="${(product.sizes || [])[0] || ""}"
           >
             Add to Cart
           </button>
@@ -136,50 +167,9 @@ async function loadProduct() {
       </section>
     `;
 
-    wireOptionSelectors();
+    bindColorSwatches(product);
   } catch (error) {
     notFound();
-  }
-}
-
-function wireOptionSelectors() {
-  const colorOptions = document.getElementById("color-options");
-  const sizeOptions = document.getElementById("size-options");
-  const addButton = document.getElementById("add-to-cart");
-  const mainImage = document.getElementById("main-product-image");
-
-  if (colorOptions) {
-    colorOptions.addEventListener("click", (event) => {
-      const swatch = event.target.closest(".color");
-
-      if (!swatch) return;
-
-      colorOptions
-        .querySelectorAll(".color")
-        .forEach((el) => el.classList.remove("selected"));
-
-      swatch.classList.add("selected");
-      addButton.dataset.color = swatch.dataset.color;
-
-      if (mainImage && swatch.dataset.image) {
-        mainImage.src = swatch.dataset.image;
-      }
-    });
-  }
-
-  if (sizeOptions) {
-    sizeOptions.addEventListener("click", (event) => {
-      const size = event.target.closest(".size");
-
-      if (!size) return;
-
-      sizeOptions
-        .querySelectorAll(".size")
-        .forEach((el) => el.classList.remove("selected"));
-
-      size.classList.add("selected");
-      addButton.dataset.size = size.dataset.size;
-    });
   }
 }
 
