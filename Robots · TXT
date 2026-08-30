@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /adminv1/
+Disallow: /cart.html
+Disallow: /checkout.html
+
+Sitemap: https://www.fashionessentials.store/sitemap.xml
