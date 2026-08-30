@@ -94,3 +94,135 @@
     padding-right: var(--space-7);
   }
 }
+
+/* ==========================================
+              SEO CONTENT SECTIONS (NEW)
+========================================== */
+
+/* "Why Choose Fashion Essentials" — 4-block feature grid */
+.feature-grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.feature-grid div {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-1);
+  border-left: 3px solid var(--fashion-gold);
+  background: var(--fashion-cream);
+}
+
+.feature-grid strong {
+  color: var(--fashion-black);
+  font-family: "Playfair Display", serif;
+  font-size: 1.05rem;
+}
+
+.feature-grid span {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+/* FAQ / QA accordion — native <details>, no JS required */
+.faq-list {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 70ch;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: var(--space-3);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--fashion-black);
+  padding: var(--space-2) 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--fashion-gold);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  padding-top: var(--space-2);
+  font-size: 0.95rem;
+}
+
+.faq-group-title {
+  color: var(--fashion-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: var(--space-5) 0 var(--space-2);
+}
+
+.faq-group-title:first-child {
+  margin-top: 0;
+}
+
+/* Final CTA banner */
+.cta-banner {
+  margin-top: var(--space-8);
+  background: var(--fashion-black);
+  color: var(--white);
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+  justify-items: center;
+}
+
+.cta-banner h2 {
+  color: var(--white);
+  max-width: 16ch;
+}
+
+.cta-banner p {
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 34rem;
+}
+
+.cta-banner .btn-primary {
+  background: var(--fashion-gold);
+  color: var(--fashion-black);
+}
+
+.cta-banner .btn-primary:hover {
+  background: var(--white);
+}
+
+
+/* ==========================================
+              TABLET (NEW)
+========================================== */
+
+@media (min-width: 768px) {
+  .feature-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
