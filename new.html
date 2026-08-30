@@ -1,27 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fashion Essentials</title>
-  <link rel="stylesheet" href="css/main.css">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Discover new hijabs and modest fashion arrivals at Fashion Essentials. Explore the latest colors, styles and everyday essentials for your modest wardrobe."
+  >
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="https://www.fashionessentials.store/new.html"
+  >
+
+  <!-- Open Graph -->
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:site_name"
+    content="Fashion Essentials"
+  >
+
+  <meta
+    property="og:title"
+    content="New Hijabs & Modest Fashion Arrivals | Fashion Essentials"
+  >
+
+  <meta
+    property="og:description"
+    content="Discover new hijabs and modest fashion arrivals at Fashion Essentials. Explore the latest colors, styles and everyday essentials for your modest wardrobe."
+  >
+
+  <meta
+    property="og:url"
+    content="https://www.fashionessentials.store/new.html"
+  >
+
+  <title>
+    New Hijabs &amp; Modest Fashion Arrivals | Fashion Essentials
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="css/main.css"
+  >
+
 </head>
+
 
 <body>
 
-<!-- *******Navbar placement from component
- by JS Script
- **********************************************
- 
-  -->
+
+<!--
+************************************************
+************* NAVBAR COMPONENT ****************
+************************************************
+-->
+
 <div id="navbar"></div>
-<!-- *******Footer placement from component
- by JS Script
- **********************************************
- 
+
+
+<main>
+
+
+  <!--
+  ************************************************
+  ************* PAGE INTRO ***********************
+  ************************************************
   -->
+
+  <section class="home-section">
+
+    <div class="section-heading stacked">
+
+      <span>Latest from Fashion Essentials</span>
+
+      <h1>New Hijabs &amp; Modest Fashion Arrivals</h1>
+
+      <p>
+        Discover our latest hijabs and modest fashion essentials,
+        featuring new colors, styles, and versatile pieces designed
+        for comfortable everyday wear.
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <!--
+  ************************************************
+  ************* LATEST HIJABS ********************
+  ************************************************
+  -->
+
+  <section class="home-section products">
+
+    <div class="section-heading stacked">
+
+      <span>Latest Collection</span>
+
+      <h2>Latest Hijabs</h2>
+
+      <p>
+        Explore the newest hijabs added to Fashion Essentials.
+        Find fresh colors and versatile styles to complement
+        your everyday modest wardrobe.
+      </p>
+
+    </div>
+
+
+    <!--
+    Product grid
+
+    We will connect this grid to the existing
+    Supabase product system after confirming
+    the product-loading JavaScript used by shop.html.
+    -->
+
+    <div
+      id="new-products"
+      class="product-grid"
+    ></div>
+
+
+  </section>
+
+
+
+  <!--
+  ************************************************
+  ************* STYLE SECTION *********************
+  ************************************************
+  -->
+
+  <section class="home-section">
+
+    <div class="section-heading stacked">
+
+      <span>Fresh styles</span>
+
+      <h2>Find Your New Favorite Hijab</h2>
+
+      <p>
+        Looking for something new for your wardrobe? Our New
+        Arrivals collection makes it easy to discover recently
+        added hijabs and modest fashion essentials.
+      </p>
+
+      <p>
+        Explore different colors and styles and choose pieces
+        that fit your personal style and everyday needs.
+        Whether you prefer simple everyday looks or want to
+        add a fresh color to your collection, there is always
+        something new to discover at Fashion Essentials.
+      </p>
+
+    </div>
+
+  </section>
+
+
+
+  <!--
+  ************************************************
+  ************* MORE ESSENTIALS ******************
+  ************************************************
+  -->
+
+  <section class="home-section">
+
+    <div class="section-heading stacked">
+
+      <span>Modest wardrobe</span>
+
+      <h2>More Modest Fashion Essentials</h2>
+
+      <p>
+        Explore modest fashion essentials designed to work
+        alongside your favorite hijabs and everyday outfits.
+        From versatile accessories to wardrobe staples,
+        Fashion Essentials is building a collection focused
+        on comfort, coverage, and effortless style.
+      </p>
+
+    </div>
+
+
+    <div class="category-grid">
+
+      <a
+        class="category-card"
+        href="shop.html"
+      >
+        <span>01</span>
+
+        <h3>Hijabs</h3>
+
+        <p>
+          Explore versatile hijabs in a range of colors
+          and styles.
+        </p>
+
+      </a>
+
+
+      <a
+        class="category-card"
+        href="shop.html"
+      >
+        <span>02</span>
+
+        <h3>Shop Collection</h3>
+
+        <p>
+          Browse our available modest fashion essentials.
+        </p>
+
+      </a>
+
+
+      <a
+        class="category-card"
+        href="new.html"
+      >
+        <span>03</span>
+
+        <h3>New Arrivals</h3>
+
+        <p>
+          Discover the latest additions to Fashion Essentials.
+        </p>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+
+  <!--
+  ************************************************
+  ************* FINAL CTA ************************
+  ************************************************
+  -->
+
+  <section class="home-section">
+
+    <div class="section-heading stacked">
+
+      <span>Fashion Essentials</span>
+
+      <h2>Looking for More Hijabs?</h2>
+
+      <p>
+        Explore our complete collection of hijabs and discover
+        more colors and styles for everyday modest fashion.
+      </p>
+
+      <div class="hero-actions">
+
+        <a
+          class="btn-primary"
+          href="shop.html"
+        >
+          Shop All Hijabs
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!--
+************************************************
+************* FOOTER COMPONENT *****************
+************************************************
+-->
+
 <div id="footer"></div>
+
 <script src="js/layout.js"></script>
 
+<!-- Cart functionality -->
+<script src="js/cart.js"></script>
 
+<!-- Product data / FashionProducts -->
+<script src="js/products-data.js"></script>
+
+<!-- New Arrivals product renderer -->
+<script src="js/new.js"></script>
 </body>
+
+</html>
