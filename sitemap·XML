@@ -13,6 +13,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.fashionessentials.store/blog.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.fashionessentials.store/about.html</loc>
     <priority>0.5</priority>
   </url>

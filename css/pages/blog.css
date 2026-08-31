@@ -1,0 +1,155 @@
+/* ==========================================
+              BLOG PAGES
+========================================== */
+
+.blog-hero {
+  background: var(--fashion-cream);
+}
+
+/* ---------- LIST PAGE ---------- */
+
+.blog-listing {
+  max-width: var(--container);
+  margin: auto;
+  padding: var(--space-7) var(--space-4);
+}
+
+.blog-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.blog-card {
+  display: grid;
+  gap: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.blog-card img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  background: var(--fashion-beige);
+}
+
+.blog-card-body {
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.blog-card-body span {
+  color: var(--fashion-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.blog-card-body h2 {
+  font-size: 1.35rem;
+}
+
+.blog-card-body p {
+  display: -webkit-box;
+  min-height: 3.2em;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ---------- ARTICLE / DETAIL PAGE ---------- */
+
+.blog-post-page {
+  width: min(760px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: var(--space-7) 0;
+}
+
+.blog-post-header {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.blog-post-header span {
+  color: var(--fashion-gold);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.blog-post-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.blog-post-meta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.blog-post-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-6);
+  background: var(--fashion-beige);
+}
+
+.blog-post-body {
+  display: grid;
+  gap: var(--space-4);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-main);
+}
+
+.blog-post-body h2 {
+  font-size: 1.6rem;
+  margin-top: var(--space-4);
+}
+
+.blog-post-body h3 {
+  font-size: 1.3rem;
+  margin-top: var(--space-3);
+}
+
+.blog-post-body a {
+  color: var(--fashion-gold);
+  text-decoration: underline;
+}
+
+.blog-post-body img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.blog-post-body ul,
+.blog-post-body ol {
+  padding-left: 1.4em;
+  list-style: revert;
+}
+
+/* ==========================================
+              TABLET
+========================================== */
+
+@media (min-width: 768px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================
+              DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
