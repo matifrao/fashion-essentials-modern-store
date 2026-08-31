@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/mornqxfm/public_html/fashionessentials.store/
+    - export DEPLOYPATH=/home/mornqxfm/fashionessentials.store/
     - /bin/cp -R * $DEPLOYPATH
