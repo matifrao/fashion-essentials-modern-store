@@ -1,46 +1,192 @@
-const grid = document.getElementById("blog-grid");
+import { blogsApi, supabase } from "../core/api.js";
+import { startShell } from "./shell.js";
 
-function formatDate(value) {
-  if (!value) return "";
-  return new Date(value).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
+const $ = id => document.getElementById(id);
+let posts = [];
+let id = "";
+let quill = null;
 
-function renderPosts(posts) {
-  if (!posts.length) {
-    grid.innerHTML = `<p class="empty-state">No blog posts yet — check back soon.</p>`;
-    return;
-  }
+const esc = text => String(text || "").replace(/[&<>"']/g, char => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+}[char]));
 
-  grid.innerHTML = posts
-    .map((post) => {
-      const image = post.featuredImage || "images/Roundnew.jpg";
-      const alt = post.imageAlt || post.title;
+const view = `
+  <div class="page-head">
+    <div>
+      <h2>Blog posts</h2>
+      <p>Create content for your store and search engines.</p>
+    </div>
+    <button class="btn primary" id="new">+ New post</button>
+  </div>
 
-      return `
-        <article class="blog-card">
-          <a href="blog-post.html?slug=${encodeURIComponent(post.slug)}">
-            <img src="${image}" alt="${alt}" loading="lazy">
-          </a>
-          <div class="blog-card-body">
-            <span>${formatDate(post.createdAt)}</span>
-            <a href="blog-post.html?slug=${encodeURIComponent(post.slug)}">
-              <h2>${post.title}</h2>
-            </a>
-            <p>${FashionBlog.excerpt(post)}</p>
+  <div class="blog-layout">
+    <section class="card">
+      <div id="postList"></div>
+    </section>
+
+    <section class="card">
+      <form id="postForm">
+        <h3 id="formTitle">New blog post</h3>
+
+        <div class="field">
+          <label>Post title</label>
+          <input id="title" required placeholder="e.g. How to choose the right hijab fabric">
+        </div>
+
+        <div class="field">
+          <label>URL handle</label>
+          <input id="slug" required>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Status</label>
+            <select id="status">
+              <option>Draft</option>
+              <option>Published</option>
+            </select>
           </div>
-        </article>
-      `;
-    })
-    .join("");
+          <div class="field">
+            <label>Featured image</label>
+            <input id="image" type="file" accept="image/*">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Featured image alt text</label>
+          <input id="imageAlt" placeholder="Describe the image for search engines and screen readers">
+        </div>
+
+        <div class="field">
+          <label>Article content</label>
+          <div id="contentEditor" class="rich-editor" style="min-height:300px;background:#fff"></div>
+        </div>
+
+        <section style="border-top:1px solid #e6e9ee;padding-top:14px">
+          <h3>SEO settings</h3>
+          <div class="field">
+            <label>Meta title</label>
+            <input id="metaTitle" maxlength="70">
+          </div>
+          <div class="field">
+            <label>Meta description</label>
+            <textarea id="metaDescription" maxlength="160"></textarea>
+          </div>
+        </section>
+
+        <button class="btn primary" type="submit">Save post</button>
+        <button class="btn danger" type="button" id="delete" hidden>Delete</button>
+      </form>
+    </section>
+  </div>
+`;
+
+function clear() {
+  id = "";
+  $("postForm").reset();
+  if (quill) quill.setContents([]);
+  $("delete").hidden = true;
+  $("formTitle").textContent = "New blog post";
 }
 
-FashionBlog.getPosts()
-  .then(renderPosts)
-  .catch((error) => {
-    grid.innerHTML = `<p class="empty-state">Couldn't load blog posts right now.</p>`;
-    console.error(error);
+function render() {
+  $("postList").innerHTML = posts.length
+    ? posts.map(post => `
+        <button class="post-row" data-id="${post.id}">
+          <strong>${esc(post.title || post.name)}</strong>
+          <small>${esc(post.status || "Draft")} · ${new Date(post.createdAt || Date.now()).toLocaleDateString()}</small>
+        </button>
+      `).join("")
+    : `<div class="empty">No blog posts yet.</div>`;
+
+  document.querySelectorAll(".post-row").forEach(button => {
+    button.onclick = () => load(button.dataset.id);
   });
+}
+
+function load(postId) {
+  const post = posts.find(item => item.id === postId);
+  if (!post) return;
+
+  id = postId;
+  $("formTitle").textContent = "Edit blog post";
+
+  ["title", "slug", "status", "metaTitle", "metaDescription", "imageAlt"].forEach(key => {
+    $(key).value = post[key] || "";
+  });
+
+  if (quill) quill.root.innerHTML = post.content || "";
+  $("delete").hidden = false;
+}
+
+async function refresh() {
+  posts = await blogsApi.list();
+  render();
+}
+
+async function init() {
+  if (!await startShell("blogs", view)) return;
+
+  quill = new Quill("#contentEditor", {
+    theme: "snow",
+    placeholder: "Write your post...",
+    modules: {
+      toolbar: [
+        [{ header: [2, 3, false] }],
+        ["bold", "italic", "underline"],
+        ["link", "image"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["clean"]
+      ]
+    }
+  });
+
+  await refresh();
+
+  $("new").onclick = clear;
+
+  $("title").oninput = () => {
+    if (!$("slug").value) {
+      $("slug").value = $("title").value
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+    }
+  };
+
+  $("postForm").onsubmit = async event => {
+    event.preventDefault();
+
+    const file = $("image").files[0];
+    const current = posts.find(post => post.id === id);
+
+    const post = {
+      title: $("title").value.trim(),
+      name: $("title").value.trim(),
+      slug: $("slug").value.trim(),
+      status: $("status").value,
+      content: quill.root.innerHTML.trim(),
+      metaTitle: $("metaTitle").value.trim(),
+      metaDescription: $("metaDescription").value.trim(),
+      imageAlt: $("imageAlt").value.trim(),
+      images: file ? [await supabase.upload(file)] : (current?.images || [])
+    };
+
+    if (id) await blogsApi.update(id, post);
+    else await blogsApi.create(post);
+
+    clear();
+    await refresh();
+  };
+
+  $("delete").onclick = async () => {
+    if (id && confirm("Delete this blog post?")) {
+      await blogsApi.delete(id);
+      clear();
+      await refresh();
+    }
+  };
+}
+
+init().catch(error => alert(error.message));
