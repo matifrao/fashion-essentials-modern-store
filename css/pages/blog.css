@@ -153,3 +153,73 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+/* Add this to blog.css (or your main stylesheet) — new blog-post elements */
+
+.blog-post-figure {
+  margin: 24px 0;
+}
+
+.blog-post-figure figcaption {
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.blog-post-author-bio {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.related-posts {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid #e6e9ee;
+}
+
+.related-posts h2 {
+  margin-bottom: 16px;
+}
+
+.related-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.related-post-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #e6e9ee;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease;
+}
+
+.related-post-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.related-post-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.related-post-card__body {
+  padding: 12px 14px;
+}
+
+.related-post-card__body span {
+  font-size: 12px;
+  color: #8a8f98;
+}
+
+.related-post-card__body h3 {
+  font-size: 15px;
+  margin-top: 4px;
+  line-height: 1.35;
+}

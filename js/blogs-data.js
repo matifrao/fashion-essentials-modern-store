@@ -23,6 +23,12 @@ const FashionBlog = (() => {
   }
 
 
+  const authHeaders = {
+    apikey: SUPABASE_ANON_KEY,
+    Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+  };
+
+
   async function request(url, options = {}) {
 
     const response = await fetch(url, {
@@ -81,6 +87,11 @@ const FashionBlog = (() => {
         data.status ||
         "Draft",
 
+      category:
+        post.category ||
+        data.category ||
+        "",
+
       content:
         data.content ||
         "",
@@ -93,12 +104,20 @@ const FashionBlog = (() => {
         data.metaDescription ||
         "",
 
+      metaKeywords:
+        data.metaKeywords ||
+        "",
+
       featuredImage:
         images[0] ||
         "",
 
       imageAlt:
         data.imageAlt ||
+        "",
+
+      imageCaption:
+        data.imageCaption ||
         "",
 
       focusKeyword:
@@ -139,17 +158,7 @@ const FashionBlog = (() => {
 
 
     const posts = await request(url, {
-
-      headers: {
-
-        apikey:
-          SUPABASE_ANON_KEY,
-
-        Authorization:
-          `Bearer ${SUPABASE_ANON_KEY}`,
-
-      },
-
+      headers: authHeaders,
     });
 
 
@@ -168,23 +177,60 @@ const FashionBlog = (() => {
 
 
     const posts = await request(url, {
-
-      headers: {
-
-        apikey:
-          SUPABASE_ANON_KEY,
-
-        Authorization:
-          `Bearer ${SUPABASE_ANON_KEY}`,
-
-      },
-
+      headers: authHeaders,
     });
 
 
     return posts.length
       ? normalizePost(posts[0])
       : null;
+  }
+
+
+  // Related posts: same category, published, excluding the current post.
+  async function getRelatedPosts(category, excludeSlug, limit = 3) {
+
+    if (!category) return [];
+
+    const url =
+      `${SUPABASE_URL}/rest/v1/blog_posts` +
+      `?select=*` +
+      `&status=eq.Published` +
+      `&category=eq.${encodeURIComponent(category)}` +
+      `&slug=neq.${encodeURIComponent(excludeSlug)}` +
+      `&order=created_at.desc` +
+      `&limit=${limit}`;
+
+    try {
+      const posts = await request(url, { headers: authHeaders });
+      return posts.map(normalizePost);
+    } catch (error) {
+      console.warn("Could not load related posts:", error.message);
+      return [];
+    }
+  }
+
+
+  // Site-wide author name/bio, stored once in the site_settings table.
+  async function getSiteSettings() {
+
+    const url =
+      `${SUPABASE_URL}/rest/v1/site_settings` +
+      `?select=*` +
+      `&id=eq.default` +
+      `&limit=1`;
+
+    try {
+      const rows = await request(url, { headers: authHeaders });
+      const row = rows[0] || {};
+      return {
+        authorName: row.author_name || "Fashion Essentials",
+        authorBio: row.author_bio || "",
+      };
+    } catch (error) {
+      console.warn("Could not load site settings:", error.message);
+      return { authorName: "Fashion Essentials", authorBio: "" };
+    }
   }
 
 
@@ -210,6 +256,10 @@ const FashionBlog = (() => {
     getPosts,
 
     getPost,
+
+    getRelatedPosts,
+
+    getSiteSettings,
 
     excerpt,
 
