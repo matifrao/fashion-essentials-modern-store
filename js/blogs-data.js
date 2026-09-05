@@ -101,6 +101,22 @@ const FashionBlog = (() => {
         data.imageAlt ||
         "",
 
+      focusKeyword:
+        data.focusKeyword ||
+        "",
+
+      ogTitle:
+        data.ogTitle ||
+        "",
+
+      ogDescription:
+        data.ogDescription ||
+        "",
+
+      ogImage:
+        data.ogImage ||
+        "",
+
       createdAt:
         post.created_at ||
         "",
