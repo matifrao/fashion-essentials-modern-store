@@ -13,6 +13,7 @@ import {
 const $ = (id) => document.getElementById(id);
 let posts = [];
 let id = "";
+let quill = null;
 
 const esc = (text) =>
   String(text || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
@@ -68,8 +69,32 @@ ${SEO_PANEL_STYLES}
       <div class="field"><label>Image caption <small>(optional — shown under the image on the post)</small></label>
         <input id="imageCaption" placeholder="e.g. Our chiffon hijab in sage green"></div>
 
-      <div class="field"><label>Article content</label>
-        <textarea id="content" required style="min-height:300px"></textarea></div>
+      <div class="field">
+        <label>Article content</label>
+        <div id="contentToolbar">
+          <span class="ql-formats">
+            <select class="ql-header"><option value="2"></option><option value="3"></option><option selected></option></select>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-link"></button>
+            <button class="ql-image"></button>
+            <button class="ql-blockquote"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-clean"></button>
+          </span>
+        </div>
+        <div id="content" style="min-height:320px;background:#fff"></div>
+      </div>
 
       <section class="seo-panel">
         <h3>SEO</h3>
@@ -113,9 +138,22 @@ ${SEO_PANEL_STYLES}
   </section>
 </div>`;
 
+function getContentHtml() {
+  return quill ? quill.root.innerHTML : "";
+}
+
+function setContentHtml(html) {
+  if (quill) quill.root.innerHTML = html || "<p><br></p>";
+}
+
+function contentIsEmpty() {
+  return !quill || quill.getText().trim().length === 0;
+}
+
 function clear() {
   id = "";
   $("postForm").reset();
+  setContentHtml("");
   $("delete").hidden = true;
   $("formTitle").textContent = "New blog post";
   runAnalysis();
@@ -145,7 +183,6 @@ function load(postId) {
     "slug",
     "status",
     "category",
-    "content",
     "metaTitle",
     "metaDescription",
     "metaKeywords",
@@ -155,6 +192,7 @@ function load(postId) {
     "ogTitle",
     "ogDescription",
   ].forEach((key) => ($(key).value = post[key] || ""));
+  setContentHtml(post.content || "");
   $("delete").hidden = false;
   runAnalysis();
 }
@@ -190,7 +228,7 @@ function updateChecklist() {
   const title = $("title").value.trim();
   const slug = $("slug").value.trim();
   const metaDescription = $("metaDescription").value.trim();
-  const contentHtml = $("content").value;
+  const contentHtml = getContentHtml();
   const focusKeyword = $("focusKeyword").value.trim();
 
   const stats = analyzeReadability(contentHtml);
@@ -213,9 +251,10 @@ function runAnalysis() {
 }
 
 function wireLiveAnalysis() {
-  ["title", "slug", "metaTitle", "metaDescription", "content", "focusKeyword"].forEach((fieldId) => {
+  ["title", "slug", "metaTitle", "metaDescription", "focusKeyword"].forEach((fieldId) => {
     $(fieldId).addEventListener("input", runAnalysis);
   });
+  if (quill) quill.on("text-change", runAnalysis);
 }
 
 async function loadAuthorSettings() {
@@ -251,6 +290,13 @@ function wireAuthorSettings() {
 
 async function init() {
   if (!(await startShell("blogs", view))) return;
+
+  quill = new Quill("#content", {
+    theme: "snow",
+    modules: { toolbar: "#contentToolbar" },
+    placeholder: "Write your post here...",
+  });
+
   await refresh();
   await loadAuthorSettings();
 
@@ -273,6 +319,12 @@ async function init() {
 
   $("postForm").onsubmit = async (event) => {
     event.preventDefault();
+
+    if (contentIsEmpty()) {
+      alert("Please write some article content before saving.");
+      return;
+    }
+
     const file = $("image").files[0];
     const ogFile = $("ogImage").files[0];
     const current = posts.find((post) => post.id === id);
@@ -283,7 +335,7 @@ async function init() {
       slug: $("slug").value.trim(),
       status: $("status").value,
       category: $("category").value.trim(),
-      content: $("content").value.trim(),
+      content: getContentHtml(),
       imageAlt: $("imageAlt").value.trim(),
       imageCaption: $("imageCaption").value.trim(),
       metaTitle: $("metaTitle").value.trim(),
