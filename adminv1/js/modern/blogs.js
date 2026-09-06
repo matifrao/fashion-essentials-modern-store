@@ -93,7 +93,7 @@ ${SEO_PANEL_STYLES}
             <button class="ql-clean"></button>
           </span>
         </div>
-        <div id="content" style="min-height:320px;background:#fff"></div>
+        <div id="content" style="height:420px;overflow-y:auto;background:#fff"></div>
       </div>
 
       <section class="seo-panel">
@@ -295,6 +295,18 @@ async function init() {
     theme: "snow",
     modules: { toolbar: "#contentToolbar" },
     placeholder: "Write your post here...",
+  });
+
+  // Word/Google Docs paste their "Heading 1" style as a literal <h1> tag.
+  // The page's own title is the only H1 that should exist, so force any
+  // pasted H1 down to H2 automatically — keeps RankMath's single-H1 rule intact.
+  quill.clipboard.addMatcher("h1", (node, delta) => {
+    delta.ops.forEach((op) => {
+      if (op.attributes && op.attributes.header) {
+        op.attributes.header = 2;
+      }
+    });
+    return delta;
   });
 
   await refresh();
