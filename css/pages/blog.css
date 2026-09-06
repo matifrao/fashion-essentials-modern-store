@@ -14,6 +14,10 @@
   padding: var(--space-7) var(--space-4);
 }
 
+.blog-listing > h2 {
+  margin-bottom: var(--space-5);
+}
+
 .blog-grid {
   display: grid;
   gap: var(--space-5);
@@ -153,7 +157,8 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-/* Add this to blog.css (or your main stylesheet) — new blog-post elements */
+
+/* ---------- BLOG POST ELEMENTS ---------- */
 
 .blog-post-figure {
   margin: 24px 0;
@@ -223,7 +228,8 @@
   margin-top: 4px;
   line-height: 1.35;
 }
-/* Add this to blog.css — Table of Contents box */
+
+/* ---------- TABLE OF CONTENTS ---------- */
 
 .blog-toc {
   border: 1px solid #e6e9ee;
@@ -269,13 +275,14 @@
 }
 
 /* Offset anchored scroll position so headings aren't hidden under a sticky navbar */
+
 .blog-post-body h2[id],
 .blog-post-body h3[id] {
   scroll-margin-top: 90px;
 }
-/* Add this to blog.css — prevents accidentally-pasted H1 tags inside
-   the article body from rendering at oversized browser-default size.
-   Matches the existing h2 style so it looks intentional either way. */
+
+/* Prevent accidentally-pasted H1 tags inside the article body
+   from rendering at oversized browser-default size. */
 
 .blog-post-body h1 {
   font-size: 1.6rem;
