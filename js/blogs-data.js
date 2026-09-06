@@ -1,369 +1,268 @@
 /*==========================================================*
-
-* Fashion Essentials
-* File: blogs-data.js
-* Description: Storefront Blog Data
-* Source: Supabase
-  *==========================================================*/
+ * Fashion Essentials
+ * File: blogs-data.js
+ * Description: Storefront Blog Data
+ * Source: Supabase
+ *==========================================================*/
 
 const SUPABASE_URL =
-"https://omnlwbmahntspldbzarj.supabase.co";
+  "https://omnlwbmahntspldbzarj.supabase.co";
 
 const SUPABASE_ANON_KEY =
-"sb_publishable_ET-KSHRDbelW54DQ_ql-ag_7zAUX5gk";
+  "sb_publishable_ET-KSHRDbelW54DQ_ql-ag_7zAUX5gk";
+
 
 const FashionBlog = (() => {
 
-function slugify(value) {
-return String(value || "")
-.toLowerCase()
-.trim()
-.replace(/[^a-z0-9]+/g, "-")
-.replace(/^-+|-+$/g, "");
-}
+  function slugify(value) {
+    return String(value)
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
 
-const authHeaders = {
-apikey: SUPABASE_ANON_KEY,
-Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-};
 
-async function request(url, options = {}) {
+  const authHeaders = {
+    apikey: SUPABASE_ANON_KEY,
+    Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+  };
 
-```
-const response = await fetch(url, {
-  cache: "no-store",
-  ...options,
-});
 
-if (!response.ok) {
+  async function request(url, options = {}) {
 
-  const message = await response.text();
+    const response = await fetch(url, {
+      cache: "no-store",
+      ...options,
+    });
 
-  throw new Error(
-    `Request failed (${response.status}): ${message}`
-  );
-}
+    if (!response.ok) {
 
-return response.json();
-```
+      const message = await response.text();
 
-}
+      throw new Error(
+        `Request failed (${response.status}): ${message}`
+      );
+    }
 
-function normalizePost(post) {
+    return response.json();
+  }
 
-```
-const data =
-  post.data &&
-  typeof post.data === "object"
-    ? post.data
-    : {};
 
+  function normalizePost(post) {
 
-const images =
-  Array.isArray(post.images)
-    ? post.images
-    : Array.isArray(data.images)
-    ? data.images
-    : [];
+    const data =
+      post.data &&
+      typeof post.data === "object"
+        ? post.data
+        : {};
 
 
-const title =
-  post.name ||
-  data.title ||
-  "";
+    const images =
+      Array.isArray(post.images)
+        ? post.images
+        : Array.isArray(data.images)
+        ? data.images
+        : [];
 
 
-const slug =
-  post.slug ||
-  data.slug ||
-  slugify(title);
+    return {
 
+      id:
+        post.id ||
+        slugify(post.name || data.title),
 
-const featuredImage =
-  images[0] ||
-  data.featuredImage ||
-  data.featured_image ||
-  "";
+      title:
+        post.name ||
+        data.title ||
+        "",
 
+      slug:
+        post.slug ||
+        data.slug ||
+        "",
 
-return {
+      status:
+        post.status ||
+        data.status ||
+        "Draft",
 
-  id:
-    post.id ||
-    slug,
+      category:
+        post.category ||
+        data.category ||
+        "",
 
+      content:
+        data.content ||
+        "",
 
-  title,
+      metaTitle:
+        data.metaTitle ||
+        "",
 
+      metaDescription:
+        data.metaDescription ||
+        "",
 
-  slug,
+      metaKeywords:
+        data.metaKeywords ||
+        "",
 
+      featuredImage:
+        images[0] ||
+        "",
 
-  status:
-    post.status ||
-    data.status ||
-    "Draft",
+      imageAlt:
+        data.imageAlt ||
+        "",
 
+      imageCaption:
+        data.imageCaption ||
+        "",
 
-  category:
-    post.category ||
-    data.category ||
-    "",
+      focusKeyword:
+        data.focusKeyword ||
+        "",
 
+      ogTitle:
+        data.ogTitle ||
+        "",
 
-  content:
-    data.content ||
-    "",
+      ogDescription:
+        data.ogDescription ||
+        "",
 
+      ogImage:
+        data.ogImage ||
+        "",
 
-  metaTitle:
-    data.metaTitle ||
-    "",
+      createdAt:
+        post.created_at ||
+        "",
 
+      updatedAt:
+        post.updated_at ||
+        post.created_at ||
+        "",
+    };
+  }
 
-  metaDescription:
-    data.metaDescription ||
-    "",
 
+  async function getPosts() {
 
-  metaKeywords:
-    data.metaKeywords ||
-    "",
+    const url =
+      `${SUPABASE_URL}/rest/v1/blog_posts` +
+      `?select=*` +
+      `&status=eq.Published` +
+      `&order=created_at.desc`;
 
 
-  featuredImage,
-
-
-  imageAlt:
-    data.imageAlt ||
-    data.image_alt ||
-    title ||
-    "Fashion Essentials blog image",
-
-
-  imageCaption:
-    data.imageCaption ||
-    data.image_caption ||
-    "",
-
-
-  focusKeyword:
-    data.focusKeyword ||
-    data.focus_keyword ||
-    "",
-
-
-  ogTitle:
-    data.ogTitle ||
-    "",
-
-
-  ogDescription:
-    data.ogDescription ||
-    "",
-
-
-  ogImage:
-    data.ogImage ||
-    data.og_image ||
-    featuredImage ||
-    "",
-
-
-  createdAt:
-    post.created_at ||
-    "",
-
-
-  updatedAt:
-    post.updated_at ||
-    post.created_at ||
-    "",
-};
-```
-
-}
-
-async function getPosts() {
-
-```
-const url =
-  `${SUPABASE_URL}/rest/v1/blog_posts` +
-  `?select=*` +
-  `&status=eq.Published` +
-  `&order=created_at.desc`;
-
-
-const posts = await request(url, {
-  headers: authHeaders,
-});
-
-
-return posts.map(normalizePost);
-```
-
-}
-
-async function getPost(slug) {
-
-```
-const url =
-  `${SUPABASE_URL}/rest/v1/blog_posts` +
-  `?select=*` +
-  `&slug=eq.${encodeURIComponent(slug)}` +
-  `&status=eq.Published` +
-  `&limit=1`;
-
-
-const posts = await request(url, {
-  headers: authHeaders,
-});
-
-
-return posts.length
-  ? normalizePost(posts[0])
-  : null;
-```
-
-}
-
-// Related posts: same category, published, excluding the current post.
-async function getRelatedPosts(category, excludeSlug, limit = 3) {
-
-```
-if (!category) return [];
-
-
-const safeLimit =
-  Math.max(1, Math.min(Number(limit) || 3, 10));
-
-
-const url =
-  `${SUPABASE_URL}/rest/v1/blog_posts` +
-  `?select=*` +
-  `&status=eq.Published` +
-  `&category=eq.${encodeURIComponent(category)}` +
-  `&slug=neq.${encodeURIComponent(excludeSlug || "")}` +
-  `&order=created_at.desc` +
-  `&limit=${safeLimit}`;
-
-
-try {
-
-  const posts =
-    await request(url, {
+    const posts = await request(url, {
       headers: authHeaders,
     });
 
 
-  return posts.map(normalizePost);
-
-} catch (error) {
-
-  console.warn(
-    "Could not load related posts:",
-    error.message
-  );
-
-  return [];
-}
-```
-
-}
-
-// Site-wide author name/bio, stored once in the site_settings table.
-async function getSiteSettings() {
-
-```
-const url =
-  `${SUPABASE_URL}/rest/v1/site_settings` +
-  `?select=*` +
-  `&id=eq.default` +
-  `&limit=1`;
+    return posts.map(normalizePost);
+  }
 
 
-try {
+  async function getPost(slug) {
 
-  const rows =
-    await request(url, {
+    const url =
+      `${SUPABASE_URL}/rest/v1/blog_posts` +
+      `?select=*` +
+      `&slug=eq.${encodeURIComponent(slug)}` +
+      `&status=eq.Published` +
+      `&limit=1`;
+
+
+    const posts = await request(url, {
       headers: authHeaders,
     });
 
 
-  const row =
-    rows[0] || {};
+    return posts.length
+      ? normalizePost(posts[0])
+      : null;
+  }
+
+
+  // Related posts: same category, published, excluding the current post.
+  async function getRelatedPosts(category, excludeSlug, limit = 3) {
+
+    if (!category) return [];
+
+    const url =
+      `${SUPABASE_URL}/rest/v1/blog_posts` +
+      `?select=*` +
+      `&status=eq.Published` +
+      `&category=eq.${encodeURIComponent(category)}` +
+      `&slug=neq.${encodeURIComponent(excludeSlug)}` +
+      `&order=created_at.desc` +
+      `&limit=${limit}`;
+
+    try {
+      const posts = await request(url, { headers: authHeaders });
+      return posts.map(normalizePost);
+    } catch (error) {
+      console.warn("Could not load related posts:", error.message);
+      return [];
+    }
+  }
+
+
+  // Site-wide author name/bio, stored once in the site_settings table.
+  async function getSiteSettings() {
+
+    const url =
+      `${SUPABASE_URL}/rest/v1/site_settings` +
+      `?select=*` +
+      `&id=eq.default` +
+      `&limit=1`;
+
+    try {
+      const rows = await request(url, { headers: authHeaders });
+      const row = rows[0] || {};
+      return {
+        authorName: row.author_name || "Fashion Essentials",
+        authorBio: row.author_bio || "",
+      };
+    } catch (error) {
+      console.warn("Could not load site settings:", error.message);
+      return { authorName: "Fashion Essentials", authorBio: "" };
+    }
+  }
+
+
+  function excerpt(post, length = 140) {
+
+    const text =
+      String(post.content || "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+
+    return text.length > length
+      ? `${text.slice(0, length).trim()}…`
+      : text;
+  }
 
 
   return {
 
-    authorName:
-      row.author_name ||
-      "Fashion Essentials",
+    slugify,
 
+    getPosts,
 
-    authorBio:
-      row.author_bio ||
-      "",
+    getPost,
+
+    getRelatedPosts,
+
+    getSiteSettings,
+
+    excerpt,
+
   };
-
-} catch (error) {
-
-  console.warn(
-    "Could not load site settings:",
-    error.message
-  );
-
-
-  return {
-    authorName: "Fashion Essentials",
-    authorBio: "",
-  };
-}
-```
-
-}
-
-function excerpt(post, length = 140) {
-
-```
-const safeLength =
-  Math.max(40, Number(length) || 140);
-
-
-const text =
-  String(post?.content || "")
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;/gi, "'")
-    .replace(/\s+/g, " ")
-    .trim();
-
-
-return text.length > safeLength
-  ? `${text.slice(0, safeLength).trim()}…`
-  : text;
-```
-
-}
-
-return {
-
-```
-slugify,
-
-getPosts,
-
-getPost,
-
-getRelatedPosts,
-
-getSiteSettings,
-
-excerpt,
-```
-
-};
 
 })();
