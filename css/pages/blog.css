@@ -273,3 +273,11 @@
 .blog-post-body h3[id] {
   scroll-margin-top: 90px;
 }
+/* Add this to blog.css — prevents accidentally-pasted H1 tags inside
+   the article body from rendering at oversized browser-default size.
+   Matches the existing h2 style so it looks intentional either way. */
+
+.blog-post-body h1 {
+  font-size: 1.6rem;
+  margin-top: var(--space-4);
+}
