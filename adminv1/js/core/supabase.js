@@ -1,5 +1,6 @@
 import { SUPABASE_CONFIG } from "../supabase-config.js";
 import { storage } from "./storage.js";
+import { compressImage } from "./image-compress.js";
 
 const configured = () => SUPABASE_CONFIG.url.startsWith("https://") && !SUPABASE_CONFIG.url.includes("YOUR-PROJECT") && !SUPABASE_CONFIG.anonKey.includes("YOUR-");
 const ready = () => { if (!configured()) throw new Error("Supabase is not configured. Update adminv1/js/supabase-config.js first."); };
@@ -38,12 +39,20 @@ export const supabase = {
   async upload(file) {
   ready();
 
-  if (file.size > 5 * 1024 * 1024) {
-    throw new Error(`${file.name} is larger than 5 MB.`);
+  if (file.size > 15 * 1024 * 1024) {
+    throw new Error(`${file.name} is larger than 15 MB.`);
+  }
+
+  // Resize/re-encode as WebP client-side before upload — keeps product
+  // and blog images small automatically, no manual compression needed.
+  const optimized = await compressImage(file);
+
+  if (optimized.size > 5 * 1024 * 1024) {
+    throw new Error(`${file.name} is still larger than 5 MB after compression.`);
   }
 
   const path =
-    `${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "-")}`;
+    `${crypto.randomUUID()}-${optimized.name.replace(/[^a-zA-Z0-9._-]/g, "-")}`;
 
   await data(
     await fetch(
@@ -51,10 +60,10 @@ export const supabase = {
       {
         method: "POST",
         headers: headers({
-          "Content-Type": file.type,
+          "Content-Type": optimized.type,
           "x-upsert": "false"
         }),
-        body: file
+        body: optimized
       }
     )
   );
